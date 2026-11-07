@@ -171,6 +171,16 @@ def git(*args, cwd=None, timeout=900):
     return subprocess.run(['git', *args], cwd=cwd, capture_output=True, env=ENV, timeout=timeout)
 
 
+_reported = []
+
+
+def _report(what, err):
+    """Print the first few git failures, so a run that fails everywhere shows why."""
+    if len(_reported) < 5:
+        _reported.append(what)
+        print(f'{what} failed: {err.strip()[-300:]}', file=sys.stderr, flush=True)
+
+
 def heads(owner, repo):
     """{branch: sha}, {} for a repository that is gone, or None when GitHub would not answer."""
     for wait in (0, 5, 30):
@@ -182,6 +192,7 @@ def heads(owner, repo):
         if 'not found' in err.lower() or 'error: 404' in err:
             return {}
     else:
+        _report(f'ls-remote {owner}/{repo}', err)
         return None
     h = {}
     for line in r.stdout.decode().splitlines():
@@ -274,6 +285,7 @@ def build_repo(owner, repo, rests, state_dir, work):
         url = f'https://github.com/{owner}/{repo}.git'
         r = git('clone', '--bare', '--quiet', '--filter=blob:limit=1m', '--no-tags', url, d, timeout=1800)
         if r.returncode:
+            _report(f'clone {name}', r.stderr.decode())
             return name, old, 'clone failed: ' + r.stderr.decode()[-200:].strip()
         if any(b not in h for b in wanted):
             return name, old, 'branch vanished'
@@ -322,7 +334,8 @@ def main():
             name, part, how = fut.result()
             status[name] = how
             if n % 100 == 0:
-                print(f'{n}/{len(futs)} {time.time() - t0:.0f}s', flush=True)
+                bad = sum(1 for v in status.values() if v.startswith(('unreachable', 'clone failed', 'timeout')))
+                print(f'{n}/{len(futs)} {time.time() - t0:.0f}s, {bad} failed', flush=True)
             if not part:
                 continue
             index['repos'][name] = part['heads']
