@@ -1,0 +1,1 @@
+{"files":{"main/homebridge/homebridge.xml":[[1653936916,"bcd5f4b","21e1910c96",null]]},"heads":{"main":"a2544a7ab76db389d76c76a61e92b2ed1fc18f40"},"paths":{"main":["homebridge/homebridge.xml"]},"secrets":{},"sets":{"21e1910c96":["path:/homebridge","variable:HOMEBRIDGE_CONFIG_UI","variable:HOMEBRIDGE_CONFIG_UI_PORT","variable:PGID","variable:PUID","variable:UMASK"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/magicmirror.xml":[[1785858759,"5e8b5bc","63263fc51c",null]]},"heads":{"main":"4ca72d0b8392f85a2e7cfdd9511093e599b58ae0"},"paths":{"main":["templates/magicmirror.xml"]},"secrets":{},"sets":{"63263fc51c":["path:/opt/magic_mirror/config","path:/opt/magic_mirror/modules","port:8080/tcp","variable:MM_SCENARIO","variable:MM_SHOW_CURSOR","variable:TZ"]},"v":3}

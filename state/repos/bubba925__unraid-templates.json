@@ -1,0 +1,1 @@
+{"files":{"main/templates/bookshelf.xml":[[1779559637,"c3d7cfc","e81703dcf4",null]]},"heads":{"main":"2cf293a6fa74c73fbc58074bf64b16aa7dd7da4e"},"paths":{"main":["templates/bookshelf.xml"]},"secrets":{},"sets":{"e81703dcf4":["path:/config","path:/downloads","path:/media","port:8787/tcp","variable:METADATA_URL","variable:PGID","variable:PUID","variable:UMASK"]},"v":3}

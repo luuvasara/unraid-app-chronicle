@@ -1,0 +1,1 @@
+{"files":{"main/templates/grovemap.xml":[[1780343407,"28b73b2","2709bf08c7",null]]},"heads":{"main":"68b8a9b1319eb84eb1f9a24517b02b42f19b0240"},"paths":{"main":["templates/grovemap.xml"]},"secrets":{},"sets":{"2709bf08c7":["path:/data/share1","path:/data/share2","path:/data/share3","port:8080/tcp","variable:SCAN_CACHE_TTL","variable:SCAN_ON_START"]},"v":3}

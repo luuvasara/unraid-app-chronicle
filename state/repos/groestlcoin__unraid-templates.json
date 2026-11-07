@@ -1,0 +1,1 @@
+{"files":{"master/groestlcoind.xml":[[1730540605,"7613c6c","5c2a24e2a3",null]]},"heads":{"master":"7613c6c5d232c1bc285a8349362f1081c59fa00a"},"paths":{"master":["groestlcoind.xml"]},"secrets":{},"sets":{"5c2a24e2a3":["path:/root/.groestlcoin","port:1331/tcp","port:1441/tcp"]},"v":3}

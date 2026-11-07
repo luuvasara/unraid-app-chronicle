@@ -1,0 +1,1 @@
+{"files":{"main/lightarr-xml.xml":[[1770484347,"8954dfb","eaefa3b36e","2d0351b1e3"]]},"heads":{"main":"728c2bbd1eedec253409c99d74dbeac1b769e0a8"},"paths":{"main":["lightarr-xml.xml"]},"secrets":{"2d0351b1e3":{"m":[],"s":["variable:X_PLEX_TOKEN"],"x":[]}},"sets":{"eaefa3b36e":["path:/data","port:10100/tcp","variable:WIZ_SUBNET","variable:X_PLEX_TOKEN"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/framewrk.xml":[[1785772598,"20b8a9f","0983f52333",null]]},"heads":{"main":"8ac98fca10cd00d4fe073be3bcf103c14954812f"},"paths":{"main":["templates/framewrk.xml"]},"secrets":{},"sets":{"0983f52333":["path:/data","port:8770/tcp","variable:PGID","variable:PUID","variable:TZ"]},"v":3}

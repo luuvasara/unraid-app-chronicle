@@ -1,0 +1,1 @@
+{"files":{"main/deskmon-agent.xml":[[1771443493,"c278253","782caada59",null]]},"heads":{"main":"85d9f50c85d409a5259d4f75b9d04d7960ce9cbc"},"paths":{"main":["deskmon-agent.xml"]},"secrets":{},"sets":{"782caada59":["path:/etc/deskmon","path:/host/sys","path:/hostfs","path:/var/run/docker.sock","variable:DESKMON_HOST_ROOT","variable:DESKMON_HOST_SYS"]},"v":3}

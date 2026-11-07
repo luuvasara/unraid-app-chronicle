@@ -1,0 +1,1 @@
+{"files":{"main/templates/atticd.xml":[[1787957838,"74a40c2","364c244eba",null]]},"heads":{"main":"74a40c2ba2d11ba8f077f1c5535cfca591e8afad"},"paths":{"main":["templates/atticd.xml"]},"secrets":{},"sets":{"364c244eba":["path:/root/.config/attic","path:/root/.local/share/attic","port:8080/tcp"]},"v":3}

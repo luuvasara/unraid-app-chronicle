@@ -1,0 +1,1 @@
+{"files":{"main/templates/bladevault.xml":[[1784126972,"c4f830e","1535ea5d3b",null]]},"heads":{"main":"92545a17a1ee73c1dc919a2631c07f8738c9ec71"},"paths":{"main":["templates/bladevault.xml"]},"secrets":{},"sets":{"1535ea5d3b":["path:/app/data","port:3000/tcp"]},"v":3}

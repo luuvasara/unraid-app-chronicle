@@ -1,0 +1,1 @@
+{"files":{"main/voyager/voyager.xml":[[1689790263,"4d62bbf","96188a37e2",null]],"main/wefwef/wefwef.xml":[[1688152577,"5600589","96188a37e2",null]]},"heads":{"main":"e532f659293bf523eff39187f223560f13bf47be"},"paths":{"main":["voyager/voyager.xml","wefwef/wefwef.xml"]},"secrets":{},"sets":{"96188a37e2":["port:5314/tcp","variable:CUSTOM_LEMMY_SERVERS"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/faro.xml":[[1784766709,"fdd6ef6","226386fbec",null]]},"heads":{"main":"64329852e9e9305f8c072e139a59b4c21a109284"},"paths":{"main":["templates/faro.xml"]},"secrets":{},"sets":{"226386fbec":["path:/config","port:1787/tcp","port:53/tcp","port:53/udp","variable:FARO_QUERY_LOG_BACKUPS","variable:FARO_QUERY_LOG_MAX_BYTES"]},"v":3}

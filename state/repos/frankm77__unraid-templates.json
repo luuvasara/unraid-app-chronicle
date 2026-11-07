@@ -1,0 +1,1 @@
+{"files":{"main/fail2ban/fail2ban/fail2ban_template.xml":[[1643318805,"af31523","c4f2e46782",null]]},"heads":{"main":"f9671c888ad7cc254bee24f87b256cf1e5542f6a"},"paths":{"main":["fail2ban/fail2ban/fail2ban_template.xml"]},"secrets":{},"sets":{"c4f2e46782":["path:/data","path:/var/log"]},"v":3}

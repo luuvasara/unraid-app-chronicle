@@ -1,0 +1,1 @@
+{"files":{"main/seekandwatch.xml":[[1772329722,"cf00224","2531d495ce",null]]},"heads":{"main":"df0b03108196d8f6a1ee1505222457393d591f3b"},"paths":{"main":["seekandwatch.xml"]},"secrets":{},"sets":{"2531d495ce":["path:/config","port:5000/tcp","variable:PGID","variable:PUID","variable:SEEKANDWATCH_UNRAID","variable:TZ"]},"v":3}

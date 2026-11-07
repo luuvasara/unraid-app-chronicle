@@ -1,0 +1,1 @@
+{"files":{"master/template.xml":[[1765269216,"52e9ca9","a2a52ebf1e",null]]},"heads":{"master":"06df2f5c94ea85d6c45616bb67d3d4689d741c49"},"paths":{"master":["template.xml"]},"secrets":{},"sets":{"a2a52ebf1e":["path:/conf","path:/db","port:9998/tcp"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/unraid/nesthealth.xml":[[1790419530,"0cbc356","a29cb681f1",null]]},"heads":{"main":"0cbc356b9513b5ab338a0f5cf05a0e5aa175e9da"},"paths":{"main":["unraid/nesthealth.xml"]},"secrets":{},"sets":{"a29cb681f1":["path:/data","port:8080/tcp","variable:PGID","variable:PUBLIC_URL","variable:PUID","variable:TZ","variable:VAPID_SUBJECT"]},"v":3}

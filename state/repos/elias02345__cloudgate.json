@@ -1,0 +1,1 @@
+{"files":{"main/packaging/unraid/templates/cloudgate.xml":[[1789826646,"045485c","87c7ff5713",null]]},"heads":{"main":"1ef1fbd02fb5208261ea2f2c3dc72ef3a0031db3"},"paths":{"main":["packaging/unraid/templates/cloudgate.xml"]},"secrets":{},"sets":{"87c7ff5713":["path:/data","port:8080/tcp","variable:CLOUDGATE_DISABLE_UPDATES","variable:PGID","variable:PUID","variable:TZ"]},"v":3}

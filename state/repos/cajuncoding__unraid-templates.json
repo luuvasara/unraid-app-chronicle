@@ -1,0 +1,1 @@
+{"files":{"main/openrgb-gui-unraid.xml":[[1761209209,"5dfe485","f4b59df411",null]]},"heads":{"main":"87c261d0cf0a03571f5731b6cd2b692a1ebfbfb3"},"paths":{"main":["openrgb-gui-unraid.xml"]},"secrets":{},"sets":{"f4b59df411":["path:/config","port:5800/tcp","port:5900/tcp","variable:GROUP_ID","variable:PLUGIN_URLS","variable:USER_ID"]},"v":3}

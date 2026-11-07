@@ -1,0 +1,1 @@
+{"files":{"main/templates/sara.xml":[[1793164053,"d63186e","89aba33984",null]]},"heads":{"main":"fb162c462155f151eb2b6511fdfcef77efe4843d"},"paths":{"main":["templates/sara.xml"]},"secrets":{},"sets":{"89aba33984":["path:/data","port:7860/tcp","variable:SARA_SECURE_COOKIES","variable:SARA_TRUST_PROXY"]},"v":3}

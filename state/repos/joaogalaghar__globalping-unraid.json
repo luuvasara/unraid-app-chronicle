@@ -1,0 +1,1 @@
+{"files":{"main/templates/globalping-probe.xml":[[1790330142,"bd228a2","4f5877adbf","70fa3718a4"]]},"heads":{"main":"c726dfa128faf281fcf09de00a173d840bec3871"},"paths":{"main":["templates/globalping-probe.xml"]},"secrets":{"70fa3718a4":{"m":["variable:GP_ADOPTION_TOKEN"],"s":["variable:GP_ADOPTION_TOKEN"],"x":[]}},"sets":{"4f5877adbf":["variable:GP_ADOPTION_TOKEN"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/crosswatch.xml":[[1782432359,"8abe82f","240d64bdd3",null]]},"heads":{"main":"883aa9bbe9b0ac9aca1ab111f856e585bd3e45ae"},"paths":{"main":["templates/crosswatch.xml"]},"secrets":{},"sets":{"240d64bdd3":["path:/config","port:8787/tcp","variable:APP_GID","variable:APP_UID","variable:TZ"]},"v":3}

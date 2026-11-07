@@ -1,0 +1,1 @@
+{"files":{"main/budgero.xml":[[1784882329,"ca3a1d6","b47a64b6e8",null]]},"heads":{"main":"e109aaaab7b223cd89b459918dfa39b4dca563d8"},"paths":{"main":["budgero.xml"]},"secrets":{},"sets":{"b47a64b6e8":["path:/data","port:3001/tcp","variable:WEBSOCKET_ALLOWED_ORIGINS"]},"v":3}

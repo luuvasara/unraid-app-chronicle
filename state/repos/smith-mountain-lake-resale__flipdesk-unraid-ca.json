@@ -1,0 +1,1 @@
+{"files":{"main/flipdesk.xml":[[1793134154,"bd068e4","92df2353a6",null]]},"heads":{"main":"b2e7c6a9540a592c601d2667c61a6a60a71ac36b"},"paths":{"main":["flipdesk.xml"]},"secrets":{},"sets":{"92df2353a6":["path:/config","path:/data","port:8080/tcp","variable:DB_TYPE","variable:PGID","variable:PUBLIC_URL","variable:PUID","variable:Port"]},"v":3}

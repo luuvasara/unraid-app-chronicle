@@ -1,0 +1,1 @@
+{"files":{"main/doge-node.xml":[[1630405704,"a00f264","e96b533be3",null]]},"heads":{"main":"cffbefd81547695444917619b73fe86444338a5f"},"paths":{"main":["doge-node.xml"]},"secrets":{},"sets":{"e96b533be3":["path:/etc/doge","port:22556/tcp"]},"v":3}

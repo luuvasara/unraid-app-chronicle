@@ -1,0 +1,1 @@
+{"files":{"main/ssr.xml":[[1617717486,"0d9664e","da69e3e1e7",null]],"main/static.xml":[[1617717486,"0d9664e","da69e3e1e7",null]]},"heads":{"main":"e22dcbdf604fe34f4aaa74c87e2796c3739aeb31"},"paths":{"main":["ssr.xml","static.xml"]},"secrets":{},"sets":{"da69e3e1e7":["port:80/tcp"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/deploy/hotfetched.xml":[[1783492887,"9991db7","6b4800396b",null]]},"heads":{"main":"4d9fe3275622a8cd50a83bb75136c34ab09f2917"},"paths":{"main":["deploy/hotfetched.xml"]},"secrets":{},"sets":{"6b4800396b":["path:/opt/platformio","path:/var/www/html/private","port:80/tcp"]},"v":3}

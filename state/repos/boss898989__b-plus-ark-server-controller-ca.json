@@ -1,0 +1,1 @@
+{"files":{"main/templates/bplus-ark-server-controller.xml":[[1787906010,"6a93799","6d418e5683",null]]},"heads":{"main":"46c94415e4b4c9c0731c24fa3f9476df6d06b31a"},"paths":{"main":["templates/bplus-ark-server-controller.xml"]},"secrets":{},"sets":{"6d418e5683":["path:/asa-appdata","path:/etc/localtime","path:/project","path:/var/run/docker.sock","port:8080/tcp"]},"v":3}

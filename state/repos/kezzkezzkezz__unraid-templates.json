@@ -1,0 +1,1 @@
+{"files":{"main/belabox-receiver/belabox.xml":[[1678591902,"d15f686","59afcf980c",null]]},"heads":{"main":"fd526ec5362f6529529f20e6813d2b7ddc423b06"},"paths":{"main":["belabox-receiver/belabox.xml"]},"secrets":{},"sets":{"59afcf980c":["path:/app/.env","path:/app/config.json","path:/etc/sls/sls.conf","port:5000/udp","port:8181/tcp","port:8282/udp"]},"v":3}

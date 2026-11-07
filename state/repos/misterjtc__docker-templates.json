@@ -1,0 +1,1 @@
+{"files":{"main/goatcounter.xml":[[1750008981,"c7e140c","da39a3ee5e",null],[1750011564,"b7e78eb","5e9a7d5f82",null]]},"heads":{"main":"b203837770f3fa4250bf7947e383e6cf1e680917"},"paths":{"main":["goatcounter.xml"]},"secrets":{},"sets":{"5e9a7d5f82":["path:/home/goatcounter/goatcounter-data","port:8080/tcp"],"da39a3ee5e":[]},"v":3}

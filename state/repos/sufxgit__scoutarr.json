@@ -1,0 +1,1 @@
+{"files":{"main/templates/scoutarr.xml":[[1771280943,"cd580fa","0c016cc0e8",null]]},"heads":{"main":"0cde916f341a1fe1ecbae689515726559bd25159"},"paths":{"main":["templates/scoutarr.xml"]},"secrets":{},"sets":{"0c016cc0e8":["path:/app/config","port:5839/tcp","variable:LOG_LEVEL","variable:TZ"]},"v":3}

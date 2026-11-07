@@ -1,0 +1,1 @@
+{"files":{"main/unraid/bots.xml":[[1785419700,"73b5a75","134c15bcd4",null]]},"heads":{"main":"077cd3f3a78911dd468c487cb1f07bd89f0091e2"},"paths":{"main":["unraid/bots.xml"]},"secrets":{},"sets":{"134c15bcd4":["path:/data","port:3847/tcp","variable:PGID","variable:PUID","variable:TZ","variable:UMASK"]},"v":3}

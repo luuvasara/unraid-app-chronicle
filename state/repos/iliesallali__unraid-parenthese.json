@@ -1,0 +1,1 @@
+{"files":{"main/templates/parenthese.xml":[[1791561191,"905ff33","aff27a9296",null],[1792498368,"02f167d","93a97da130",null]]},"heads":{"main":"69ef501c60b2577a0151f4fe986bdb5e67b87554"},"paths":{"main":["templates/parenthese.xml"]},"secrets":{},"sets":{"93a97da130":["path:/data","port:80/tcp","variable:ALLOW_REGISTRATION"],"aff27a9296":["path:/data","port:80/tcp"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/profilarr.xml":[[1778956881,"2617849","da39a3ee5e",null],[1778957162,"5dec3c8","2060aa4549",null]]},"heads":{"main":"3fb79515bd52ff43842e89fa37df8d000d590c41"},"paths":{"main":["templates/profilarr.xml"]},"secrets":{},"sets":{"2060aa4549":["path:/config","port:6868/tcp","variable:PGID","variable:PUID","variable:UMASK"],"da39a3ee5e":[]},"v":3}

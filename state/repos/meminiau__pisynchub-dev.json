@@ -1,0 +1,1 @@
+{"files":{"main/pisynchub.xml":[[1792749830,"c093437","397741f986",null],[1793265161,"6fbcd85","056744d29f",null]]},"heads":{"main":"a45672375f234de7a3d6e094c2a8cea59fe16bdb"},"paths":{"main":["pisynchub.xml"]},"secrets":{},"sets":{"056744d29f":["path:/config","port:8085/tcp","variable:CONFIG_DIR","variable:PORT"],"397741f986":["path:/config","port:8085/tcp"]},"v":3}

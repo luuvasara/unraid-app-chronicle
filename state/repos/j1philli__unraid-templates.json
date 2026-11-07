@@ -1,0 +1,1 @@
+{"files":{"main/maubot/maubot.xml":[[1687413947,"5521022","449dcf1efd",null],[1687479388,"8e1305b","e741b918eb",null]]},"heads":{"main":"38b8dd1324d1974d4fa45eb6d44769b18057f722"},"paths":{"main":["maubot/maubot.xml"]},"secrets":{},"sets":{"449dcf1efd":["path:/data","port:29316/tcp"],"e741b918eb":["path:/data","port:29316/tcp","variable:GID","variable:UID"]},"v":3}

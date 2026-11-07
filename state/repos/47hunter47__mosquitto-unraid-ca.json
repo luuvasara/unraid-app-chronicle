@@ -1,0 +1,1 @@
+{"files":{"main/templates/mosquitto.xml":[[1787128480,"1780af5","0a1f36ebb2",null],[1787640854,"e7dbe84","ba53381365",null]]},"heads":{"main":"ebc404c54255ca736b22682fe748b3d21204fd38"},"paths":{"main":["templates/mosquitto.xml"]},"secrets":{},"sets":{"0a1f36ebb2":[":/config"],"ba53381365":["path:/config","variable:TZ"]},"v":3}

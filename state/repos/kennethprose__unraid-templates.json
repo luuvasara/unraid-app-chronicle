@@ -1,0 +1,1 @@
+{"files":{"main/Foptimum/foptimum.xml":[[1663812755,"d410086","b06037b84b",null]]},"heads":{"main":"693ab1e800937405586c951de8dceb848350a3df"},"paths":{"main":["Foptimum/foptimum.xml"]},"secrets":{},"sets":{"b06037b84b":["port:9191/tcp","variable:PING_INTERVAL","variable:SERVER_LIST","variable:SPEEDTEST_INTERVAL"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/unraid-nextcloud-multimedia.xml":[[1678552839,"48a9afb","e43c0dc0d2",null]]},"heads":{"main":"1f9d3e11cd734382948f6aa05be260f2ae383745"},"paths":{"main":["unraid-nextcloud-multimedia.xml"]},"secrets":{},"sets":{"e43c0dc0d2":["path:/var/www/html","path:/var/www/html/config","path:/var/www/html/custom_apps","port:80/tcp","variable:PHP_MEMORY_LIMIT"]},"v":3}

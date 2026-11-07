@@ -1,0 +1,1 @@
+{"files":{"main/fintrackr.xml":[[1784782315,"e0bfe24","cfc402c834",null]]},"heads":{"main":"e72f2c25fae11c02da2c2580fde16561c1b27052"},"paths":{"main":["fintrackr.xml"]},"secrets":{},"sets":{"cfc402c834":["path:/data","port:8080/tcp","variable:TZ"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/nostos.xml":[[1792849245,"b4b71b4","9c3e438bf9",null]]},"heads":{"main":"b4b71b4a41b9bc2a52e5c036be79679b69b74c8e"},"paths":{"main":["templates/nostos.xml"]},"secrets":{},"sets":{"9c3e438bf9":["path:/data","path:/external/media","port:8080/tcp","variable:TMPDIR"]},"v":3}

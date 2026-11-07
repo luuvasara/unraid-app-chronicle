@@ -1,0 +1,1 @@
+{"files":{"main/templates/spoolease-bambustudio.xml":[[1784168674,"fb987e3","86420fb949",null]]},"heads":{"main":"be2f99cf295765da626db336ab8f02c88a15897e"},"paths":{"main":["templates/spoolease-bambustudio.xml"]},"secrets":{},"sets":{"86420fb949":["path:/config","port:3001/tcp","variable:PGID","variable:PUID","variable:TZ"]},"v":3}

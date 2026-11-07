@@ -1,0 +1,1 @@
+{"files":{"main/templates/courarr.xml":[[1790623251,"d349afd","21dd006743",null]]},"heads":{"main":"3fde51e9d75c7be6630775ec1eae9e212e2a7820"},"paths":{"main":["templates/courarr.xml"]},"secrets":{},"sets":{"21dd006743":["path:/config","port:6161/tcp","variable:COURARR_RESET_AUTH","variable:PGID","variable:PUID","variable:UMASK"]},"v":3}

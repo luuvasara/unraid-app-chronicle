@@ -1,0 +1,1 @@
+{"files":{"main/templates/telegram-files/telegram-files.xml":[[1736306239,"615d91d","7cc3a99ccc",null]]},"heads":{"main":"e28d9fbfd5d230b0e7c9d244e65fa076bacd9189"},"paths":{"main":["templates/telegram-files/telegram-files.xml"]},"secrets":{},"sets":{"7cc3a99ccc":["path:/app/data","port:80/tcp","variable:APP_ROOT","variable:TELEGRAM_API_HASH","variable:TELEGRAM_API_ID"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/ghostpantry.xml":[[1789012804,"a106a7c","a5194b7826",null]]},"heads":{"main":"a106a7c4fe809a4d8cbda7acb18b09f7ef74bbf7"},"paths":{"main":["templates/ghostpantry.xml"]},"secrets":{},"sets":{"a5194b7826":["path:/data","port:8000/tcp","variable:COOKIE_SECURE","variable:GHOSTPANTRY_DB","variable:TZ"]},"v":3}

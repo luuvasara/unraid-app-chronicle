@@ -1,0 +1,1 @@
+{"files":{"master/soulsync/soulsync.xml":[[1758479826,"262050f","bc0a32e335",null]]},"heads":{"master":"fd8bc54157da908e057434d021cbdf5b933c5e99"},"paths":{"master":["soulsync/soulsync.xml"]},"secrets":{},"sets":{"bc0a32e335":["path:/app/config/config.json","path:/app/data","path:/app/logs","path:/host/music","port:8008/tcp","port:8888/tcp","port:8889/tcp"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/urbit-on-unraid.xml":[[1644432872,"274dc22","bf5094cdd6",null],[1644540521,"65285cb","fad3d57a77",null]]},"heads":{"main":"4be740ff75b6832c6759d4ddc0401f55200f3789"},"paths":{"main":["urbit-on-unraid.xml"]},"secrets":{},"sets":{"bf5094cdd6":["path:/urbit","port:34343/udp","port:8080/tcp"],"fad3d57a77":["path:/urbit","port:34343/udp","port:8088/tcp"]},"v":3}

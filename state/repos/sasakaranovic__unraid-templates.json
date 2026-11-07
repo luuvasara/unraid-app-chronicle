@@ -1,0 +1,1 @@
+{"files":{"master/OpenFanTemplate.xml":[[1708812988,"cc75835","f146fc22ed",null]]},"heads":{"master":"426166ec4824d65d3df612ffe9ab72d35f6e8641"},"paths":{"master":["OpenFanTemplate.xml"]},"secrets":{},"sets":{"f146fc22ed":["device:name:OpenFAN USB Port","port:3000/tcp","variable:OPENFANCOMPORT"]},"v":3}

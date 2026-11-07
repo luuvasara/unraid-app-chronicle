@@ -1,0 +1,1 @@
+{"files":{"main/templates/absulli.xml":[[1782803125,"0245911","9eecb9f6c2",null]]},"heads":{"main":"4b465812dfb6f62ff18fc6ce36cb7d5f7d2aa823"},"paths":{"main":["templates/absulli.xml"]},"secrets":{},"sets":{"9eecb9f6c2":["path:/config","port:8272/tcp","variable:PGID","variable:PUID","variable:TZ"]},"v":3}

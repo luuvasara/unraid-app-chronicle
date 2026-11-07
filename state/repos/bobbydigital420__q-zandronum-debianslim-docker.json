@@ -1,0 +1,1 @@
+{"files":{"main/templates/q-zandronum.xml":[[1786302612,"8b6c033","ca7c3b95e3",null]]},"heads":{"main":"fd771f64b6e1243643f3876565f02192f60d7305"},"paths":{"main":["templates/q-zandronum.xml"]},"secrets":{},"sets":{"ca7c3b95e3":["path:/home/zandronum/.config/zandronum","port:10666/udp","variable:EXTRA_ARGS"]},"v":3}

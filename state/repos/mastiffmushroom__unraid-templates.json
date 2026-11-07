@@ -1,0 +1,1 @@
+{"files":{"main/TrackerAutoLogin/TrackerAutoLogin.xml":[[1677812662,"fb60eea","a58dc3715e",null],[1677862410,"8f548c2","9700541fa8",null]]},"heads":{"main":"c7396b79a83509486776c7f970cdb2a27f22da5a"},"paths":{"main":["TrackerAutoLogin/TrackerAutoLogin.xml"]},"secrets":{},"sets":{"9700541fa8":["path:/app/config","port:99/tcp"],"a58dc3715e":["port:99/tcp"]},"v":3}

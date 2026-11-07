@@ -1,0 +1,1 @@
+{"files":{"main/templates/plexbie.xml":[[1791166223,"29250b1","80d2d1876c",null]]},"heads":{"main":"bc3bcfec859e8fb5c8000d41cf86605a896ee3a1"},"paths":{"main":["templates/plexbie.xml"]},"secrets":{},"sets":{"80d2d1876c":["path:/app/config","path:/app/logs","path:/data","variable:PGID","variable:PUID"]},"v":3}

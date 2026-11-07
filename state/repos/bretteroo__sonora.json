@@ -1,0 +1,1 @@
+{"files":{"main/unraid/sonora.xml":[[1793310292,"73b3a3e","0f9a2a5ced",null]]},"heads":{"main":"25d39a11d60073b96e91c50848d4e8ee804fff0b"},"paths":{"main":["unraid/sonora.xml"]},"secrets":{},"sets":{"0f9a2a5ced":["path:/data","variable:SONORA_ALLOWED_HOSTS","variable:SONORA_EVENT_PORT","variable:SONORA_LOG_LEVEL","variable:SONORA_WEB_PORT"]},"v":3}

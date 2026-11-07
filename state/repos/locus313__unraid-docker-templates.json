@@ -1,0 +1,1 @@
+{"files":{"main/templates/myst.xml":[[1638587393,"feb65b6","993c2c2c93",null]]},"heads":{"main":"5824bfe16161d0a0e587d29e5a35795d80603eb0"},"paths":{"main":["templates/myst.xml"]},"secrets":{},"sets":{"993c2c2c93":["path:/var/lib/mysterium-node","port:4449/tcp"]},"v":3}

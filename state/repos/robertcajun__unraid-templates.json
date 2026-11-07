@@ -1,0 +1,1 @@
+{"files":{"main/templates/adguard-11n.xml":[[1751985948,"d5028f3","581fef81a3",null]]},"heads":{"main":"4c2b35e19e18ac82911335a665fee2f64b17cd8a"},"paths":{"main":["templates/adguard-11n.xml"]},"secrets":{},"sets":{"581fef81a3":["path:/adguard/etc","path:/adguard/var","port:3000/tcp","port:53/tcp","port:53/udp","port:80/tcp"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/kibana.xml":[[1618021019,"39fe54b","e8bfe82131",null]],"main/ntopng.xml":[[1617980785,"8551b7c","6fbc9e210c",null]]},"heads":{"main":"224ad346b9a7e8895afb4f35b2a88683ad4517b2"},"paths":{"main":["kibana.xml","ntopng.xml"]},"secrets":{},"sets":{"6fbc9e210c":["path:/var/lib/redis"],"e8bfe82131":["port:5601/tcp","variable:ELASTICSEARCH_HOSTS"]},"v":3}

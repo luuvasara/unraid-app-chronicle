@@ -1,0 +1,1 @@
+{"files":{"main/jorgenman/restic-rest-server.xml":[[1636220213,"0382c46","aea558df7f",null]]},"heads":{"main":"c7e7826e5432ef49c405f0eb0a5f7a3ac3c8f6e3"},"paths":{"main":["jorgenman/restic-rest-server.xml"]},"secrets":{},"sets":{"aea558df7f":["path:/data","port:8000/tcp","variable:OPTIONS"]},"v":3}

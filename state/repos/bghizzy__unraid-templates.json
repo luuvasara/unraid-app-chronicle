@@ -1,0 +1,1 @@
+{"files":{"main/unraid/immich-public-proxy.xml":[[1735389339,"cbe7860","8a33bb7fa2",null]]},"heads":{"main":"161eda5fb3ef6a8a1797a9076fe1057f194e109b"},"paths":{"main":["unraid/immich-public-proxy.xml"]},"secrets":{},"sets":{"8a33bb7fa2":["port:3000/tcp","variable:IMMICH_URL"]},"v":3}

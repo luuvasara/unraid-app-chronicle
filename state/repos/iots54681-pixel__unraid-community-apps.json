@@ -1,0 +1,1 @@
+{"files":{"main/templates/hades.xml":[[1791068297,"051e76d","7a1f9abd28",null]]},"heads":{"main":"554dc231403d5e29f6ae7b0114e55025a888415c"},"paths":{"main":["templates/hades.xml"]},"secrets":{},"sets":{"7a1f9abd28":["path:/config","port:8124/tcp","variable:HADES_CATALOG_WORK_PROFILE","variable:HADES_LOCAL_RECOVERY_ENABLED","variable:TZ"]},"v":3}

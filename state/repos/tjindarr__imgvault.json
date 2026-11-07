@@ -1,0 +1,1 @@
+{"files":{"main/templates/imgvault.xml":[[1779798699,"42a6b8e","6d80a01f8b",null]]},"heads":{"main":"9b586a10053b3ed864641c8a12ef02f5de1537f1"},"paths":{"main":["templates/imgvault.xml"]},"secrets":{},"sets":{"6d80a01f8b":["path:/data/converted","path:/data/db","path:/data/photos","path:/data/thumbnails","path:/data/transcoded","path:/data/trash","port:8080/tcp"]},"v":3}

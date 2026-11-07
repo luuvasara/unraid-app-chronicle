@@ -1,0 +1,1 @@
+{"files":{"main/deploy/farfetched.xml":[[1781228379,"3464cbf","2849d93813",null]]},"heads":{"main":"33d93c609a657baac9479fb831f45a7a153f4437"},"paths":{"main":["deploy/farfetched.xml"]},"secrets":{},"sets":{"2849d93813":["path:/downloads","path:/var/www/html/private","port:80/tcp","variable:FETCHER_DOWNLOAD_DELAY","variable:FETCHER_DOWNLOAD_DIR"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/openhop-repeater.xml":[[1784687036,"c25a7d9","33aebc6fb6",null]]},"heads":{"main":"d5d46dab94ca5dbb280d3f15c17f55d873956be9"},"paths":{"main":["templates/openhop-repeater.xml"]},"secrets":{},"sets":{"33aebc6fb6":["path:/etc/openhop_repeater","path:/var/lib/openhop_repeater","port:5001/tcp","port:5002/tcp","port:5003/tcp","port:8000/tcp"]},"v":3}

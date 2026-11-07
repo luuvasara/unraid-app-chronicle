@@ -1,0 +1,1 @@
+{"files":{"main/tandarr.xml":[[1770471957,"fefa1a5","0f9383d195","e333c475f6"]]},"heads":{"main":"b614d754f1715bb02fe1fbe08920995d850c2f76"},"paths":{"main":["tandarr.xml"]},"secrets":{"e333c475f6":{"m":["variable:PLEX_TOKEN"],"s":["variable:PLEX_TOKEN"],"x":[]}},"sets":{"0f9383d195":["path:/config","port:3000/tcp","variable:PLEX_TOKEN","variable:PLEX_URL","variable:TZ"]},"v":3}

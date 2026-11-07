@@ -1,0 +1,1 @@
+{"files":{"main/templates/feynman.xml":[[1789376369,"7794dda","e38c5fa7d2",null]]},"heads":{"main":"88467a2242c84c78a3f16c614cd35d49d936fadd"},"paths":{"main":["templates/feynman.xml"]},"secrets":{},"sets":{"e38c5fa7d2":["path:/config","path:/workspace","port:8787/tcp","variable:FEYNMAN_NO_AUTH","variable:FEYNMAN_PORT","variable:TZ"]},"v":3}

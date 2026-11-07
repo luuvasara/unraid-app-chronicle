@@ -1,0 +1,1 @@
+{"files":{"master/zerotier.xml":[[1527918161,"2c8ff0d","4b92c84645",null]]},"heads":{"master":"69117152188cfc6b5d7ce3b4c33d2def202968bb"},"paths":{"master":["zerotier.xml"]},"secrets":{},"sets":{"4b92c84645":["path:/var/lib/zerotier-one","variable:NETWORK_ID"]},"v":3}

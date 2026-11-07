@@ -1,0 +1,1 @@
+{"files":{"main/bitwarden-secure-sync/bitwarden-secure-sync.xml":[[1709476022,"bd3c2e4","9c50fe7997",null]]},"heads":{"main":"bd3c2e4372a6d15be9753923a719a3c254d83e91"},"paths":{"main":["bitwarden-secure-sync/bitwarden-secure-sync.xml"]},"secrets":{},"sets":{"9c50fe7997":["path:/app/config","path:/app/data","variable:PGID","variable:PUID"]},"v":3}

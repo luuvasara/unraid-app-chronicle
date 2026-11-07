@@ -1,0 +1,1 @@
+{"files":{"main/quireink.xml":[[1787818468,"49f5fbb","1c7ff45419",null]]},"heads":{"main":"8d73f39b79a3a420a5f4922b9b218467f62b44ff"},"paths":{"main":["quireink.xml"]},"secrets":{},"sets":{"1c7ff45419":["path:/var/lib/quire/data","path:/var/lib/quire/uploads","port:3000/tcp","variable:PGID","variable:PUID","variable:SITE_URL"]},"v":3}

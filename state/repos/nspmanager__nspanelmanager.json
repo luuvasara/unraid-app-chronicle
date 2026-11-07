@@ -1,0 +1,1 @@
+{"files":{"main/unraid/nspanelmanager.xml":[[1736933311,"6a98e85","1772784b37",null]]},"heads":{"main":"772bb6210f842b661fdeeb794b024ab859a52927"},"paths":{"main":["unraid/nspanelmanager.xml"]},"secrets":{},"sets":{"1772784b37":["path:/data","port:8000/tcp"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/whisper-asr-webservice/template.xml":[[1682364337,"b434b32","304541a6e1",null]]},"heads":{"main":"b434b323e874ffb0e4bafa2901c0e3e782498b95"},"paths":{"main":["whisper-asr-webservice/template.xml"]},"secrets":{},"sets":{"304541a6e1":["path:/root/.cache/whisper","port:9000/tcp","variable:ASR_MODEL"]},"v":3}

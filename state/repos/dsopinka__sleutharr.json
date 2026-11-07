@@ -1,0 +1,1 @@
+{"files":{"main/unraid/sleutharr.xml":[[1785892738,"efc681a","ff7779c364",null]]},"heads":{"main":"bd2545aae83933fcc0bcdb769867c364fa446c13"},"paths":{"main":["unraid/sleutharr.xml"]},"secrets":{},"sets":{"ff7779c364":["path:/config","port:8080/tcp","variable:PGID","variable:PUID","variable:SLEUTHARR_CSRF_TRUSTED_ORIGINS","variable:TZ"]},"v":3}

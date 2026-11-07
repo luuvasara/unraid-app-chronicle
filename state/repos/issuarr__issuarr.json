@@ -1,0 +1,1 @@
+{"files":{"main/templates/issuarr.xml":[[1791750806,"c914c5a","981513e78e",null]]},"heads":{"main":"4f3db3a9396f4883ff2a28faeba0e513de1ff731"},"paths":{"main":["templates/issuarr.xml"]},"secrets":{},"sets":{"981513e78e":["path:/comics","path:/config","path:/downloads","port:8090/tcp","variable:PGID","variable:PUID","variable:UMASK"]},"v":3}

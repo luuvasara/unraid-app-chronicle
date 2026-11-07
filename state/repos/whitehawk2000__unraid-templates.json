@@ -1,0 +1,1 @@
+{"files":{"main/printventory.xml":[[1792433918,"c5f9ffc","5611838f40",null]]},"heads":{"main":"f76012503cd219bf4cea1e559cb1e2ca275b9e83"},"paths":{"main":["printventory.xml"]},"secrets":{},"sets":{"5611838f40":["path:/mnt/models","path:/root/.config/printventory","port:5000/tcp","variable:SERVER_MODE"]},"v":3}

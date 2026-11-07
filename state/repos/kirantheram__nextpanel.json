@@ -1,0 +1,1 @@
+{"files":{"main/templates/nextpanel.xml":[[1790547867,"a515842","c41d35e39a",null]]},"heads":{"main":"a58602cb13309116583d8a898df5e0fb6b0b01fe"},"paths":{"main":["templates/nextpanel.xml"]},"secrets":{},"sets":{"c41d35e39a":["path:/config","port:6995/tcp","variable:NEXTPANEL_SESSION_COOKIE_SECURE"]},"v":3}

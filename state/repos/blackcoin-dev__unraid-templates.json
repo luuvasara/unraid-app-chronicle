@@ -1,0 +1,1 @@
+{"files":{"main/blackcoin.xml":[[1783377746,"3a05f51","af8cafcd8c",null]]},"heads":{"main":"dad3e962cdf5ee18e7eb698998c3188fa1783337"},"paths":{"main":["blackcoin.xml"]},"secrets":{},"sets":{"af8cafcd8c":["path:/home/blackcoin/.blackcoin","port:15714/tcp","port:8080/tcp"]},"v":3}

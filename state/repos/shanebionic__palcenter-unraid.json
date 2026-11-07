@@ -1,0 +1,1 @@
+{"files":{"main/templates/palcenter.xml":[[1784903705,"63b16f8","67e09c1c9d",null]]},"heads":{"main":"3b00f6d6b6215c79d0f3d592e3b8b86fdf5d3f06"},"paths":{"main":["templates/palcenter.xml"]},"secrets":{},"sets":{"67e09c1c9d":["path:/app/data","port:3000/tcp","port:3001/tcp","variable:PALCENTER_GID","variable:PALCENTER_UID"]},"v":3}

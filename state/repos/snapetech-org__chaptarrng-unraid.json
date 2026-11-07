@@ -1,0 +1,1 @@
+{"files":{"main/templates/chaptarrng.xml":[[1790658420,"4676c27","5a62e82373",null]]},"heads":{"main":"1785157d6ca4158a73dd87146895b95b681f8758"},"paths":{"main":["templates/chaptarrng.xml"]},"secrets":{},"sets":{"5a62e82373":["path:/audiobooks","path:/config","path:/downloads","path:/ebooks","port:8789/tcp","variable:PGID","variable:PUID","variable:TZ","variable:UMASK"]},"v":3}

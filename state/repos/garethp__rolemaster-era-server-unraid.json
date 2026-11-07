@@ -1,0 +1,1 @@
+{"files":{"main/Rollermaster-ERA-Unraid.xml":[[1718538669,"b7db413","bdff70d954",null]]},"heads":{"main":"bee95e72c00a9c15491a3931fd2760d0c69abacd"},"paths":{"main":["Rollermaster-ERA-Unraid.xml"]},"secrets":{},"sets":{"bdff70d954":["path:/srv/Characters","path:/srv/ERA-Linux","path:/srv/Modules","port:7777/tcp","variable:EXTRA_MODULES","variable:MODULE"]},"v":3}

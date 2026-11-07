@@ -1,0 +1,1 @@
+{"files":{"master/docs/unraid/muxarr.xml":[[1792089148,"68f17ef","c2bb0a2eeb",null]]},"heads":{"master":"1bcb4b9a9c743b5b33c5abe3ab1c8539fab89c1b"},"paths":{"master":["docs/unraid/muxarr.xml"]},"secrets":{},"sets":{"c2bb0a2eeb":["path:/config","path:/media","port:8183/tcp","variable:PGID","variable:PUID","variable:TZ","variable:UMASK"]},"v":3}

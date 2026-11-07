@@ -1,0 +1,1 @@
+{"files":{"master/cross-seed.xml":[[1700573756,"0692a1f","9917d10bb9",null]]},"heads":{"master":"40f1be95a87d9259f441d66af7bd771beff992e5"},"paths":{"master":["cross-seed.xml"]},"secrets":{},"sets":{"9917d10bb9":["path:/config","path:/cross-seeds","path:/data","path:/torrents","port:2468/tcp"]},"v":3}

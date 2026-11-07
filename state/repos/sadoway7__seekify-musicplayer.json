@@ -1,0 +1,1 @@
+{"files":{"main/templates/seekify.xml":[[1784868228,"e7ad016","0870edea2d",null]]},"heads":{"main":"7a35b4ba21d280a48921a0294038b208d064b374"},"paths":{"main":["templates/seekify.xml"]},"secrets":{},"sets":{"0870edea2d":["path:/app/data","path:/media-music","path:/music","port:8081/tcp","variable:MEDIA_MUSIC_DIR","variable:MUSIC_DIR","variable:PORT"]},"v":3}

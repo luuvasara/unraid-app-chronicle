@@ -1,0 +1,1 @@
+{"files":{"main/ios-signer-service/ios-signer-service.xml":[[1623081156,"0ba0d24","8edb369868",null]]},"heads":{"main":"1f84ed74990587d5d508701fbfa8bc88fb57ad8e"},"paths":{"main":["ios-signer-service/ios-signer-service.xml"]},"secrets":{},"sets":{"8edb369868":["path:/data","path:/data/profiles","path:/signer-cfg.yml","port:8080/tcp","variable:-log-level"]},"v":3}

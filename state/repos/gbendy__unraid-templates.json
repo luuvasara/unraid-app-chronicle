@@ -1,0 +1,1 @@
+{"files":{"main/sonarrtorss/sonarrtorss.xml":[[1711788337,"e1cb587","f949b7a608",null]]},"heads":{"main":"b0749d0aef5bb41aae3f8c9806f8aff04d7a6bc7"},"paths":{"main":["sonarrtorss/sonarrtorss.xml"]},"secrets":{},"sets":{"f949b7a608":["path:/data","port:18989/tcp","variable:PGID","variable:PUID"]},"v":3}

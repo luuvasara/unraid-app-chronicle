@@ -1,0 +1,1 @@
+{"files":{"main/my-macreplayv2.xml":[[1763257999,"0cfae4f","fe0b40ef8c",null]]},"heads":{"main":"b8d2485b1acdbab28a6b12ed9a8bb95d59cf9fe0"},"paths":{"main":["my-macreplayv2.xml"]},"secrets":{},"sets":{"fe0b40ef8c":["path:/app/data","path:/app/logs","port:8001/tcp","variable:PGID","variable:PUID","variable:PYTHONUNBUFFERED","variable:TZ"]},"v":3}

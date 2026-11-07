@@ -1,0 +1,1 @@
+{"files":{"main/OpenList.xml":[[1751332967,"8f7435b","4c8ab6593f",null]]},"heads":{"main":"7bf1bdbb781d1ec18cb798bb704aa3387edf636b"},"paths":{"main":["OpenList.xml"]},"secrets":{},"sets":{"4c8ab6593f":["path:/opt/openlist/data","port:5244/tcp","variable:PGID","variable:PUID","variable:UMASK"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/redisInsight/redisInsight.xml":[[1634694889,"61485ac","00dbe1d509",null],[1704850566,"8319125","f108da5567",null]]},"heads":{"main":"a8daf3bf3bf9ca5282883ddf0f9708fe70426487"},"paths":{"main":["redisInsight/redisInsight.xml"]},"secrets":{},"sets":{"00dbe1d509":["port:8001/tcp"],"f108da5567":["port:5000/tcp"]},"v":3}

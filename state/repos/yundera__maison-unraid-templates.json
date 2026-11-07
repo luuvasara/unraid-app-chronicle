@@ -1,0 +1,1 @@
+{"files":{"main/maison.xml":[[1791456820,"011bb49","68647fa3a7",null]]},"heads":{"main":"4b584b5bf0ce3029628287d03c0822b1f2d6036f"},"paths":{"main":["maison.xml"]},"secrets":{},"sets":{"68647fa3a7":["path:/DATA","path:/host/proc","path:/var/run/docker.sock","port:8080/tcp","variable:DATA_HOST_PATH","variable:DATA_ROOT","variable:PGID","variable:PUID","variable:TZ"]},"v":3}

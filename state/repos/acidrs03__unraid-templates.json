@@ -1,0 +1,1 @@
+{"files":{"main/ftbskies2_server.xml":[[1752678301,"ce19a52","d5d4ce48ed",null]]},"heads":{"main":"aacd6ad45d5bd2845a6afe831dada8c1e024318e"},"paths":{"main":["ftbskies2_server.xml"]},"secrets":{},"sets":{"d5d4ce48ed":["path:/data","port:25565/tcp","variable:EULA","variable:JVM_OPTS","variable:LEVEL","variable:MOTD","variable:OPS"]},"v":3}

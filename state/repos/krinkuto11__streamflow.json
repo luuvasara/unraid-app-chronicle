@@ -1,0 +1,1 @@
+{"files":{"main/templates/streamflow.xml":[[1791497629,"765e2a6","e1ee9b7909",null]]},"heads":{"main":"53a32a0a6fd8ac27a3a35d019c42440765c27295"},"paths":{"main":["templates/streamflow.xml"]},"secrets":{},"sets":{"e1ee9b7909":["path:/app/data","port:5000/tcp","variable:PGID","variable:PUID"]},"v":3}

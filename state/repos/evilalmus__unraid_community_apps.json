@@ -1,0 +1,1 @@
+{"files":{"master/docker-apache-php.xml":[[1693854572,"4eede1d","eddcacc30b",null]]},"heads":{"master":"4464147e4a6e7756600c0bc6e380607aeb70238e"},"paths":{"master":["docker-apache-php.xml"]},"secrets":{},"sets":{"eddcacc30b":["path:/config","path:/etc/localtime","path:/logs","path:/web","port:443/tcp","port:80/tcp"]},"v":3}

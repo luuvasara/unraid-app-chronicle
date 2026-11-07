@@ -1,0 +1,1 @@
+{"files":{"master/_unraid/playerr.xml":[[1767642545,"18ae8e5","7d7b055264",null]]},"heads":{"master":"e4f813c985711cef3fc28db2c85a5de7f230c70b"},"paths":{"master":["_unraid/playerr.xml"]},"secrets":{},"sets":{"7d7b055264":["path:/app/config","path:/media","port:2727/tcp"]},"v":3}

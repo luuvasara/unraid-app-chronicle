@@ -1,0 +1,1 @@
+{"files":{"master/wbynum/QEMUBackup.xml":[[1575591047,"3061424","c59fdbd536",null]]},"heads":{"master":"306142469cc3f0f9743392c6bbc81107ecafee3d"},"paths":{"master":["wbynum/QEMUBackup.xml"]},"secrets":{},"sets":{"c59fdbd536":["port:80/tcp","variable:QEMUBackupBackupPath","variable:QEMUBackupHost","variable:QEMUBackupUsername"]},"v":3}

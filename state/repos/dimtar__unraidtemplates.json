@@ -1,0 +1,1 @@
+{"files":{"master/nextcloudpi/nextcloudpi.xml":[[1571917425,"3137feb","cf573444d2",null]]},"heads":{"master":"d47dbbbbf7e62d7f74d8ca170e98da70f9ba670b"},"paths":{"master":["nextcloudpi/nextcloudpi.xml"]},"secrets":{},"sets":{"cf573444d2":["path:/data","port:443/tcp","port:4443/tcp","port:80/tcp"]},"v":3}

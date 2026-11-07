@@ -1,0 +1,1 @@
+{"files":{"main/templates/backissue.xml":[[1783918985,"eff74c9","0525895189",null]]},"heads":{"main":"310e34e85000aefe61e227c3c1f3b45c46f67b22"},"paths":{"main":["templates/backissue.xml"]},"secrets":{},"sets":{"0525895189":["path:/comics","path:/data","path:/downloads","port:8787/tcp","variable:PGID","variable:PUID","variable:TRUST_PROXY","variable:UMASK"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/glance-editor.xml":[[1792015776,"a556c79","1a2ae2d774",null]]},"heads":{"main":"e7864e96e30f160268f23a316ba5365d3d61d50d"},"paths":{"main":["templates/glance-editor.xml"]},"secrets":{},"sets":{"1a2ae2d774":["path:/data","path:/photos","path:/var/run/docker.sock","port:3000/tcp","port:8080/tcp","variable:PGID","variable:PUID"]},"v":3}

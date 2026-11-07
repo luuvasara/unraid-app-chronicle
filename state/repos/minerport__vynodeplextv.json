@@ -1,0 +1,1 @@
+{"files":{"main/templates/afterglow-tv.xml":[[1792328267,"33f4dc8","908ea1a4af",null]]},"heads":{"main":"62909c1e8703f0b94f4f7e4db07d997e36bc26ed"},"paths":{"main":["templates/afterglow-tv.xml"]},"secrets":{},"sets":{"908ea1a4af":["path:/config","port:8080/tcp","variable:APP_ORIGIN","variable:COOKIE_SECURE","variable:LOG_LEVEL","variable:PRESENTATION_UPLOAD_MB"]},"v":3}

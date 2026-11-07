@@ -1,0 +1,1 @@
+{"files":{"main/censarr.xml":[[1790684582,"0cdb8cd","4e7c87d0f8",null]]},"heads":{"main":"ef6d019f1552785cd02635dc5e1b47f66f3839d0"},"paths":{"main":["censarr.xml"]},"secrets":{},"sets":{"4e7c87d0f8":["path:/config","path:/data","port:8477/tcp","variable:NVIDIA_DRIVER_CAPABILITIES","variable:NVIDIA_VISIBLE_DEVICES"]},"v":3}

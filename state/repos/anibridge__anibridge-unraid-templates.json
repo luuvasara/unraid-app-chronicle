@@ -1,0 +1,1 @@
+{"files":{"main/anibridge.xml":[[1769915950,"1bc844f","0db33a8a0a",null]]},"heads":{"main":"a1bb17554b8ac06c2512fbba456a24c1a8d79564"},"paths":{"main":["anibridge.xml"]},"secrets":{},"sets":{"0db33a8a0a":["path:/config","port:4848/tcp","variable:PGID","variable:PUID","variable:UMASK"]},"v":3}

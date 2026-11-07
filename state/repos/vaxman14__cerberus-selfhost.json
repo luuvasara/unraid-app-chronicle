@@ -1,0 +1,1 @@
+{"files":{"main/templates/cerberus-aio.xml":[[1790589197,"5784212","22c741780b",null]]},"heads":{"main":"b401acad36561ca3615ae8c9694305e9b797b167"},"paths":{"main":["templates/cerberus-aio.xml"]},"secrets":{},"sets":{"22c741780b":["path:/config","path:/var/run/docker.sock","port:8099/tcp","variable:CERBERUS_AIO_CONFIG_VOLUME","variable:CERBERUS_ENABLE_ACTIVE_SCANS"]},"v":3}

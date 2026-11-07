@@ -1,0 +1,1 @@
+{"files":{"main/contrib/unraid-template.xml":[[1779228348,"48fec5b","d735a73b89",null]]},"heads":{"main":"cc0c124946d2a76b172fb9cd97cea1458f7a93a8"},"paths":{"main":["contrib/unraid-template.xml"]},"secrets":{},"sets":{"d735a73b89":["path:/config","path:/data","path:/var/run/docker.sock","port:8080/tcp"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/ergonode.xml":[[1647213608,"045d4dc","d1ce1b7415",null]]},"heads":{"main":"6a489c325c002c73215ee4867dd90dcbe0c280b3"},"paths":{"main":["ergonode.xml"]},"secrets":{},"sets":{"d1ce1b7415":["path:/etc/myergo.conf","path:/home/ergo/.ergo","port:9030/tcp","port:9053/tcp"]},"v":3}

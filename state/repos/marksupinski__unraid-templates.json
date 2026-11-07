@@ -1,0 +1,1 @@
+{"files":{"main/lm-studio-headless.xml":[[1781367050,"55eac06","e90073fbf4",null]]},"heads":{"main":"b6fe1be88c1c98c01d3b59e045cf1d06c9f8316c"},"paths":{"main":["lm-studio-headless.xml"]},"secrets":{},"sets":{"e90073fbf4":["path:/models","port:1234/tcp","variable:NVIDIA_DRIVER_CAPABILITIES","variable:NVIDIA_VISIBLE_DEVICES"]},"v":3}

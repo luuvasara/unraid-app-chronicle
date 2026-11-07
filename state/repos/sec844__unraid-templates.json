@@ -1,0 +1,1 @@
+{"files":{"main/templates/analysarr.xml":[[1789754941,"122edce","76e97efcef",null]]},"heads":{"main":"1be9fe18f13a10d5025fca1ae84c4259cd9c2f0c"},"paths":{"main":["templates/analysarr.xml"]},"secrets":{},"sets":{"76e97efcef":["path:/config","path:/data","port:1818/tcp","variable:DATABASE_PATH"]},"v":3}

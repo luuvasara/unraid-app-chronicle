@@ -1,0 +1,1 @@
+{"files":{"main/Prowlarr.xml":[[1693320306,"aec9fa6","438bcd954a",null]]},"heads":{"main":"3d7717e9dbe578350396a0f0049386ca6c6d7889"},"paths":{"main":["Prowlarr.xml"]},"secrets":{},"sets":{"438bcd954a":["path:/config","port:9696/tcp","variable:PGID","variable:PUID","variable:TZ"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/lan-device-scanner.xml":[[1790822445,"7383a75","f2a3ab221e",null]]},"heads":{"main":"7d57b799673ce5f3402464e30f71b6b819c07f64"},"paths":{"main":["templates/lan-device-scanner.xml"]},"secrets":{},"sets":{"f2a3ab221e":["path:/app/data","port:8765/tcp","variable:TZ"]},"v":3}

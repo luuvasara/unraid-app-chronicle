@@ -1,0 +1,1 @@
+{"files":{"main/templates/prismarr.xml":[[1781024495,"208b999","5051995b0f",null]]},"heads":{"main":"603274c40ea9599153d53f2070f5dc4801eeec2c"},"paths":{"main":["templates/prismarr.xml"]},"secrets":{},"sets":{"5051995b0f":["path:/var/www/html/var/data","port:7070/tcp","variable:PHP_MAX_EXECUTION_TIME","variable:PHP_MEMORY_LIMIT","variable:TRUSTED_PROXIES","variable:TZ"]},"v":3}

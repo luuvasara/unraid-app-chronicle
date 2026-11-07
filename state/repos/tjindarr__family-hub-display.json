@@ -1,0 +1,1 @@
+{"files":{"main/templates/ha-dashboard.xml":[[1779736576,"a7dafa4","aff27a9296",null]]},"heads":{"main":"96d934d172eaf5a2e13e6fed477e3ccecdaf240c"},"paths":{"main":["templates/ha-dashboard.xml"]},"secrets":{},"sets":{"aff27a9296":["path:/data","port:80/tcp"]},"v":3}

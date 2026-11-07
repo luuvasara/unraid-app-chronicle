@@ -1,0 +1,1 @@
+{"files":{"main/cryptgeon_redis.xml":[[1661926221,"c522fa3","32a199a869",null]]},"heads":{"main":"402806618bc7e974892943b8272e2990173eed48"},"paths":{"main":["cryptgeon_redis.xml"]},"secrets":{},"sets":{"32a199a869":["port:5000/tcp","variable:ALLOW_ADVANCED","variable:MAX_EXPIRATION","variable:MAX_VIEWS","variable:REDIS","variable:SIZE_LIMIT"]},"v":3}

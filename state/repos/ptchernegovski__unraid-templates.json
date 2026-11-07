@@ -1,0 +1,1 @@
+{"files":{"main/printbed/printbed.xml":[[1709195105,"bc12d86","8fe913869c",null]]},"heads":{"main":"22b145831012613532c07a4549554aef8dc71a2c"},"paths":{"main":["Funkwhale%20AIO/Funkwhale%20AIO.xml","printbed/printbed.xml"]},"secrets":{},"sets":{"8fe913869c":["path:/appdata","path:/print-files","port:8080/tcp"]},"v":3}

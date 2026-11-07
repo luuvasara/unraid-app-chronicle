@@ -1,0 +1,1 @@
+{"files":{"main/templates/pullarr.xml":[[1790981855,"7440a5e","35c9e139ed",null]]},"heads":{"main":"82f39d1aac54dc70affa1afebbeddb2500cdb799"},"paths":{"main":["templates/pullarr.xml"]},"secrets":{},"sets":{"35c9e139ed":["path:/app/db","path:/app/logs","path:/app/temp_downloads","path:/data","port:5656/tcp","variable:PGID","variable:PUID","variable:TZ"]},"v":3}

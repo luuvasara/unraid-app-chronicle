@@ -1,0 +1,1 @@
+{"files":{"main/templates/seawise.xml":[[1792092070,"42dae0c","cccf3546f6",null]]},"heads":{"main":"81941c667816b11608fb4035dea17d0347272b20"},"paths":{"main":["templates/seawise.xml"]},"secrets":{},"sets":{"cccf3546f6":["path:/config","variable:PGID","variable:PUID","variable:SEAWISE_HOST_NETWORK","variable:SEAWISE_PORT"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/shapeshifter-docker.xml":[[1646291888,"7381088","d1602d0379",null]]},"heads":{"main":"33dca193f53c48893178c402fc871873d258b3bf"},"paths":{"main":["shapeshifter-docker.xml"]},"secrets":{},"sets":{"d1602d0379":["path:/state","port:2222/tcp","variable:ARGS"]},"v":3}
