@@ -38,11 +38,12 @@ template (the method is in [FORMAT.md](FORMAT.md)), and look it up.
 - `https://luuvasara.github.io/unraid-template-history/index.json.gz` (also `index.json`), rebuilt
   daily by `.github/workflows/build.yml` and published with GitHub Pages.
 - `summary.json` next to it: counts from the last build.
+- `changes/YYYY.jsonl` next to it (and in this repository): the catalog changelog, below.
 - Format: [FORMAT.md](FORMAT.md).
 
-It covers every template in the feed whose `TemplateURL` points at a GitHub repository. For each version
-of each template file it records the commit time, the short commit id, and the set of fields, each as its type and target (`variable:PUID`, `path:/config`,
-`port:8080/tcp`).
+It covers every template the feed lists, or has listed, at a GitHub address. For each version of
+each template file it records the commit time, the short commit id, and the set of fields, each as
+its type and target (`variable:PUID`, `path:/config`, `port:8080/tcp`).
 
 Each version can also carry a list of fields that probably hold a secret: fields marked `Mask="true"`,
 variables or labels whose name looks like a password, token or key, and `--password`-style flags or
@@ -51,15 +52,31 @@ those fields with care. Only field names are listed.
 
 No default, value or description of any field is stored, and the templates themselves are not copied.
 
+## Apps that leave the catalog
+
+Apps are removed from the catalog, and templates move to new addresses. The index keeps every
+container app it has seen, including removed ones, with its last known references: name, template
+address, image, registry, support and project links, the GitHub repository and the catalog
+repository that listed it, whether it was marked deprecated or blacklisted, and when it was first
+and last seen. The template history of a removed app stays in the index too. With the last known
+address, a removed app's template can still be found in its author's repository, or in that
+repository's history, for as long as the repository exists.
+
+Each build also appends what changed in the catalog since the previous one (apps added, removed,
+listed again, moved to a new address, or with changed references) to `changes/YYYY.jsonl`, one line
+per change, so the catalog's own history can be followed day by day.
+
 ## Building it yourself
 
 `python3 build.py` (Python 3.9+ and git) builds the same index:
 
-1. It downloads the Community Applications feed and collects the GitHub repositories its
-   `TemplateURL`s point at.
+1. It downloads the Community Applications feed and collects the GitHub repositories its template
+   addresses point at, plus those of apps it listed before.
 2. It clones each repository once (bare, without files over 1 MB), walks the history of every
    template file the feed names, records each distinct field set, and deletes the clone.
-3. It writes `public/index.json`, `public/index.json.gz` and `public/summary.json`.
+3. It updates the app list in `state/catalog.json`, appends the day's changes to `changes/`, and
+   writes `public/index.json`, `public/index.json.gz`, `public/summary.json` and `public/changes/`.
 
 The per-repository results are kept in `state/`, so a later run only rebuilds repositories whose
-branch has moved. `python3 build.py --help` lists the options.
+branch has moved. `state/` and `changes/` are committed by the daily build: the app list and the
+changelog cannot be rebuilt from a later feed. `python3 build.py --help` lists the options.

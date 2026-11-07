@@ -5,13 +5,17 @@ For every template file the feed points at, record each distinct field set the f
 git history. Only field identity is kept (type, target, port protocol); no defaults, descriptions or
 anything else. See FORMAT.md.
 
-usage: build.py [--feed FILE|URL] [--state DIR] [--out DIR] [--jobs N] [--limit N]
+Also keeps a catalog of every container app the feed has listed, removed ones included, with its last known
+references, and a changelog of what was added, removed or changed (state/catalog.json, changes/YYYY.jsonl).
+
+usage: build.py [--feed FILE|URL] [--state DIR] [--out DIR] [--changes DIR] [--jobs N] [--limit N]
 """
 import argparse, gzip, hashlib, json, os, re, shutil, subprocess, sys, tempfile, time, urllib.request
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 
-FORMAT = 2
+FORMAT = 3
+CATALOG_VERSION = 1
 PART_VERSION = 3  # saved repository parts from an older build are rebuilt
 FEED_URLS = ['https://ca.unraid.net/assets/feed/applicationFeed.json',
              'https://assets.ca.unraid.net/feed/applicationFeed.json',
@@ -157,13 +161,122 @@ def load_feed(src):
     sys.exit(f'feed download failed: {last}')
 
 
-def feed_targets(feed):
-    """{(owner, repo): set(rest-of-url)} for every GitHub raw template address in the feed."""
+# References kept for each app, by feed field. Only addresses and names, never template content.
+APP_FIELDS = {'name': 'Name', 'template_url': None, 'repository': 'Repository', 'registry': 'Registry',
+              'support': 'Support', 'project': 'Project', 'ca_repo': 'Repo'}
+APP_FLAGS = ('Deprecated', 'Blacklist', 'ModeratorComment')
+
+
+def _s(v):
+    return v.strip() if isinstance(v, str) else ''
+
+
+def app_url(a):
+    """The template address of a feed entry: TemplateURL, else caTemplateURL."""
+    return _s(a.get('TemplateURL')) or _s(a.get('caTemplateURL'))
+
+
+def app_key(a):
+    """Stable id of a container app: its template address plus the name of the Community Applications
+    repository that lists it (the same file can be listed by two repositories)."""
+    return app_url(a) + '#' + _s(a.get('Repo'))
+
+
+def feed_apps(feed):
+    """{key: references} for every container app in the feed (not plugins, not entries without an address)."""
     out = {}
     for a in feed.get('applist', []):
-        m = RAW.match(a.get('TemplateURL') or '')
-        if m:
-            out.setdefault((m[1], m[2]), set()).add(m[3])
+        if a.get('Plugin') or not _s(a.get('Repository')) or not app_url(a):
+            continue
+        r = {k: (_s(a.get(f)) if f else app_url(a)) for k, f in APP_FIELDS.items()}
+        m = RAW.match(r['template_url'])
+        r['github'] = f'{m[1]}/{m[2]}' if m else ''
+        r['flags'] = sorted(f for f in APP_FLAGS if a.get(f) not in (None, '', False, 'false', 'False'))
+        fs = a.get('FirstSeen')
+        r['_first'] = int(fs) if str(fs).isdigit() else None
+        out[app_key(a)] = r
+    return out
+
+
+def _image(ref):
+    """Image name without tag or registry default, for matching an app that moved to a new address."""
+    i = ref.lower().split('@')[0]
+    if ':' in i.rsplit('/', 1)[-1]:
+        i = i.rsplit(':', 1)[0]
+    for p in ('docker.io/', 'index.docker.io/', 'registry.hub.docker.com/'):
+        if i.startswith(p):
+            i = i[len(p):]
+    return i
+
+
+def update_catalog(catalog, apps, now):
+    """Merge today's feed apps into the catalog. Returns the change events, oldest field first.
+    An app that disappears and an app that appears in the same run with the same image and name is
+    one app that moved (its address or listing repository changed)."""
+    events = []
+    added = [k for k in apps if k not in catalog or catalog[k].get('removed')]
+    gone = [k for k, c in catalog.items() if not c.get('removed') and k not in apps]
+    def ident(r):
+        return (_image(r['repository']), r['name'].lower())
+    gone_by = {}
+    for k in gone:
+        gone_by.setdefault(ident(catalog[k]), []).append(k)
+    add_by = {}
+    for k in added:
+        if k not in catalog:
+            add_by.setdefault(ident(apps[k]), []).append(k)
+    for i, olds in gone_by.items():
+        news = add_by.get(i, [])
+        if len(olds) == 1 and len(news) == 1:
+            o, n = olds[0], news[0]
+            c = catalog.pop(o)
+            c['moved_from'] = sorted(set(c.get('moved_from', [])) | {o})
+            catalog[n] = c
+            gone.remove(o)
+            added.remove(n)
+            ch = {f: [c.get(f), apps[n][f]] for f in list(APP_FIELDS) + ['github', 'flags'] if c.get(f) != apps[n][f]}
+            events.append({'event': 'moved', 'key': n, 'from': o, 'name': apps[n]['name'], 'changes': ch})
+            for f in list(APP_FIELDS) + ['github', 'flags']:
+                c[f] = apps[n][f]
+            c['last_seen'] = now
+    for k in sorted(added):
+        r = apps[k]
+        if k in catalog:
+            c = catalog[k]
+            c.pop('removed', None)
+            events.append({'event': 'returned', 'key': k, 'name': r['name']})
+        else:
+            c = catalog[k] = {'first_seen': r['_first'] or now}
+            events.append({'event': 'added', 'key': k, 'name': r['name']})
+        for f in list(APP_FIELDS) + ['github', 'flags']:
+            c[f] = r[f]
+        c['last_seen'] = now
+    for k in sorted(gone):
+        c = catalog[k]
+        c['removed'] = True
+        events.append({'event': 'removed', 'key': k, 'name': c['name'], 'last_seen': c['last_seen']})
+    for k, r in sorted(apps.items()):
+        c = catalog[k]
+        if c.get('last_seen') == now:
+            continue
+        ch = {f: [c.get(f), r[f]] for f in list(APP_FIELDS) + ['github', 'flags'] if c.get(f) != r[f]}
+        if ch:
+            events.append({'event': 'changed', 'key': k, 'name': r['name'], 'changes': ch})
+            for f in ch:
+                c[f] = r[f]
+        c['last_seen'] = now
+    return events
+
+
+def catalog_targets(catalog):
+    """{(owner, repo): set(rest-of-url)} for the GitHub template address of every app in the catalog,
+    removed ones and earlier addresses of moved ones included, so their history stays in the index."""
+    out = {}
+    for c in catalog.values():
+        for u in [c.get('template_url') or ''] + [k.split('#', 1)[0] for k in c.get('moved_from', [])]:
+            m = RAW.match(u)
+            if m:
+                out.setdefault((m[1], m[2]), set()).add(m[3])
     return out
 
 
@@ -268,7 +381,7 @@ def build_repo(owner, repo, rests, state_dir, work):
     if h is None:
         return name, old, 'unreachable' + (' (kept old part)' if old else '')
     if not h:
-        return name, None, 'gone'
+        return name, old, 'gone' + (' (kept old part)' if old else '')
     wanted = {}
     for rest in rests:
         b, p = split_branch(rest, h)
@@ -315,18 +428,42 @@ def main():
     ap.add_argument('--state', default='state')
     ap.add_argument('--out', default='public')
     ap.add_argument('--work', default='work')
+    ap.add_argument('--changes', default='changes')
     ap.add_argument('--jobs', type=int, default=8)
     ap.add_argument('--limit', type=int, default=0)
     a = ap.parse_args()
     t0 = time.time()
     feed = load_feed(a.feed)
-    targets = sorted(feed_targets(feed).items())
+    for d in (a.work, a.out, a.state, a.changes):
+        os.makedirs(d, exist_ok=True)
+    now = int(feed.get('last_updated_timestamp') or time.time())
+    cat_file = os.path.join(a.state, 'catalog.json')
+    cat = json.load(open(cat_file)) if os.path.exists(cat_file) else {'v': CATALOG_VERSION, 'updated': 0, 'apps': {}}
+    if cat.get('v') != CATALOG_VERSION:
+        sys.exit(f'state catalog version {cat.get("v")} is not {CATALOG_VERSION}')
+    events = []
+    if now > cat['updated']:
+        apps = feed_apps(feed)
+        first = not cat['apps']
+        events = update_catalog(cat['apps'], apps, now)
+        if first:  # the first build is the baseline: every app would be "added"
+            events = []
+        cat['updated'] = now
+        day = time.strftime('%Y-%m-%d', time.gmtime(now))
+        if events:
+            with open(os.path.join(a.changes, day[:4] + '.jsonl'), 'a') as fh:
+                for e in events:
+                    fh.write(json.dumps({'date': day, 'time': now, **e}, separators=(',', ':'), sort_keys=True) + '\n')
+        with open(cat_file + '.tmp', 'w') as fh:
+            json.dump(cat, fh, indent=0, sort_keys=True)
+        os.replace(cat_file + '.tmp', cat_file)
+    else:
+        print(f'feed not newer than the catalog ({now} <= {cat["updated"]}), catalog unchanged', file=sys.stderr)
+    targets = sorted(catalog_targets(cat['apps']).items())
     if a.limit:
         targets = targets[:a.limit]
-    for d in (a.work, a.out, a.state):
-        os.makedirs(d, exist_ok=True)
     index = {'format': FORMAT, 'generated': int(time.time()), 'feed_updated': feed.get('last_updated_timestamp'),
-             'repos': {}, 'sets': {}, 'secrets': {}, 'files': {}}
+             'apps': cat['apps'], 'repos': {}, 'sets': {}, 'secrets': {}, 'files': {}}
     status = {}
     with ThreadPoolExecutor(a.jobs) as ex:
         futs = [ex.submit(build_repo, o, r, rests, a.state, a.work) for (o, r), rests in targets]
@@ -348,11 +485,20 @@ def main():
     gz = gzip.compress(raw, 9, mtime=0)
     open(os.path.join(a.out, 'index.json.gz'), 'wb').write(gz)
     json.dump(status, open(os.path.join(a.state, 'status.json'), 'w'), indent=0, sort_keys=True)
+    pub = os.path.join(a.out, 'changes')
+    os.makedirs(pub, exist_ok=True)
+    for f in sorted(os.listdir(a.changes)):
+        if f.endswith('.jsonl'):
+            shutil.copyfile(os.path.join(a.changes, f), os.path.join(pub, f))
     counts = {}
     for v in status.values():
         k = v.split(':')[0].split(' (')[0]
         counts[k] = counts.get(k, 0) + 1
-    summary = {'repos_in_feed': len(targets), 'repos_indexed': len(index['repos']), 'files': len(index['files']),
+    ev = {}
+    for e in events:
+        ev[e['event']] = ev.get(e['event'], 0) + 1
+    summary = {'apps': len(cat['apps']), 'apps_removed': sum(1 for c in cat['apps'].values() if c.get('removed')),
+               'changes_this_run': ev, 'repos': len(targets), 'repos_indexed': len(index['repos']), 'files': len(index['files']),
                'versions': sum(len(v) for v in index['files'].values()), 'distinct_sets': len(index['sets']), 'distinct_secret_infos': len(index['secrets']),
                'raw_bytes': len(raw), 'gzip_bytes': len(gz), 'seconds': round(time.time() - t0, 1), 'status': counts}
     json.dump(summary, open(os.path.join(a.out, 'summary.json'), 'w'), indent=1)
