@@ -1,7 +1,9 @@
-# Unraid template history index
+# Unraid App Chronicle
 
-A daily index of how the Docker container templates in the Unraid app catalog have changed over
-time. It is built for tools that compare an installed container with the template it came from.
+A daily record of the Unraid app catalog: every container app and plugin that Community Applications
+lists or has listed, removed ones included, with their last known links, and the history of each
+container template's fields. It is built for tools that compare an installed container with the
+template it came from, and for finding an app again after it has left the catalog.
 
 ## Background
 
@@ -35,7 +37,7 @@ template (the method is in [FORMAT.md](FORMAT.md)), and look it up.
 
 ## The index
 
-- `https://luuvasara.github.io/unraid-template-history/index.json.gz` (also `index.json`), rebuilt
+- `https://luuvasara.github.io/unraid-app-chronicle/index.json.gz` (also `index.json`), rebuilt
   daily by `.github/workflows/build.yml` and published with GitHub Pages.
 - `summary.json` next to it: counts from the last build.
 - `changes/YYYY.jsonl` next to it (and in this repository): the catalog changelog, below.
@@ -58,7 +60,11 @@ Apps are removed from the catalog, and templates move to new addresses. The inde
 container app it has seen, including removed ones, with its last known references: name, template
 address, image, registry, support and project links, the GitHub repository and the catalog
 repository that listed it, whether it was marked deprecated or blacklisted, and when it was first
-and last seen. The template history of a removed app stays in the index too. With the last known
+and last seen. The template history of a removed app stays in the index too.
+
+Plugins are kept the same way, with links only: name, plugin (`.plg`) address, its catalog template
+address, author, support and project links, the supported Unraid versions, and the same flags and
+dates. Nothing from the plugin files themselves is stored. With the last known
 address, a removed app's template can still be found in its author's repository, or in that
 repository's history, for as long as the repository exists.
 

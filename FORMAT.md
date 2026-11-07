@@ -1,4 +1,4 @@
-# Index format, version 3
+# Unraid App Chronicle index format, version 3
 
 One JSON document, served as `index.json.gz` (gzip) and `index.json`. Rebuilt once a day.
 
@@ -8,7 +8,7 @@ One JSON document, served as `index.json.gz` (gzip) and `index.json`. Rebuilt on
   "generated": 1794050000,
   "feed_updated": 1794040000,
   "apps": { "https://raw.githubusercontent.com/owner/repo/main/app.xml#Owner's Repository": {
-      "name": "app", "template_url": "https://raw.githubusercontent.com/owner/repo/main/app.xml",
+      "kind": "container", "name": "app", "template_url": "https://raw.githubusercontent.com/owner/repo/main/app.xml",
       "github": "owner/repo", "ca_repo": "Owner's Repository", "repository": "owner/app:latest",
       "registry": "https://hub.docker.com/r/owner/app", "support": "https://...", "project": "https://...",
       "flags": ["Deprecated"], "first_seen": 1600000000, "last_seen": 1794040000,
@@ -23,24 +23,30 @@ One JSON document, served as `index.json.gz` (gzip) and `index.json`. Rebuilt on
 - `format`: changes only when a reader written for an older value would misread the file. Readers
   must refuse a value they do not know.
 - `generated`, `feed_updated`: Unix seconds. `feed_updated` is the feed's own `last_updated_timestamp`.
-- `apps` (format 3): every container app the feed has listed since the index started, including apps
-  that are no longer in it, with their last known references. Plugins and entries without a template
-  address are not included.
-  - The key is the template address (`TemplateURL`, else `caTemplateURL`), `#`, and the name of the
-    Community Applications repository that lists it (`Repo`). The same file can be listed by two
-    repositories, so the address alone is not unique.
-  - `name`, `repository` (the image), `registry`, `support`, `project` and `ca_repo` are the feed's
-    `Name`, `Repository`, `Registry`, `Support`, `Project` and `Repo`, as last seen. `github` is the
-    `owner/repo` of a GitHub template address, empty for other hosts.
-  - `flags`: which of `Deprecated`, `Blacklist` and `ModeratorComment` the feed sets for the app. Only
-    their presence is kept, never the comment text.
+- `apps` (format 3): every container app and plugin the feed has listed since the index started,
+  including ones that are no longer in it, with their last known references. Entries without an
+  address (language packs) are not included.
+  - `kind`: `container` or `plugin`.
+  - The key is the app's address, `#`, and the name of the Community Applications repository that
+    lists it (`Repo`). The address is `PluginURL` for a plugin, else `TemplateURL`, else
+    `caTemplateURL`. The same file can be listed by two repositories, so the address alone is not
+    unique.
+  - Containers: `name`, `template_url`, `repository` (the image), `registry`, `support`, `project` and
+    `ca_repo`, from the feed's `Name`, the address, `Repository`, `Registry`, `Support`, `Project` and
+    `Repo`, as last seen.
+  - Plugins: `name`, `plugin_url`, `template_url`, `author`, `support`, `project`, `ca_repo`, `min_ver`
+    and `max_ver`, from `Name`, `PluginURL`, `TemplateURL`, `PluginAuthor` (else `Author`), `Support`,
+    `Project`, `Repo`, `MinVer` and `MaxVer`. Plugins have no `files` history.
+  - `github`: the `owner/repo` of a GitHub address, empty for other hosts.
+  - `flags`: which of `Deprecated`, `Blacklist`, `ModeratorComment` and `Incompatible` the feed sets.
+    Only their presence is kept, never the comment text.
   - `first_seen`: the feed's `FirstSeen` when the app was first indexed, else the build time.
     `last_seen`: the `feed_updated` of the last build that listed it.
   - `removed`: present and `true` when the last build did not list the app. Its `files` history is
     kept while its repository exists, and kept as last built when the repository is gone.
-  - `moved_from`: earlier keys. When, in one build, an app disappears and another appears with the
-    same image (without tag) and the same name, it is one app whose address or listing repository
-    changed; it keeps its `first_seen`.
+  - `moved_from`: earlier keys. When, in one build, an app disappears and another of the same kind
+    appears with the same name and the same image without tag (containers) or author (plugins), it is
+    one app whose address or listing repository changed; it keeps its `first_seen`.
 - `files`: the key is the template address with `https://raw.githubusercontent.com/` removed, exactly
   as the feed spells it. Each entry is `[commit time, short commit sha, set id, secrets id]`, oldest
   first. The secrets id is `null` when the version has no masked or secret-like field. An entry is
@@ -85,6 +91,6 @@ and writes none.
 ```
 
 - `event`: `added`, `removed`, `returned` (a removed app is listed again), `changed`, `moved`.
-- `key`, `name`: as in `apps`. `moved` also has `from`, the earlier key.
+- `kind`, `key`, `name`: as in `apps`. `moved` also has `from`, the earlier key.
 - `changes` (`changed`, `moved`): `{field: [old, new]}` for the `apps` fields that differ.
 - `date` and `time` are the feed's `last_updated_timestamp` (UTC date).

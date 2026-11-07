@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Build the template history index from the Community Applications feed.
+"""Build the Unraid App Chronicle index from the Community Applications feed.
 
 For every template file the feed points at, record each distinct field set the file has had in its
 git history. Only field identity is kept (type, target, port protocol); no defaults, descriptions or
 anything else. See FORMAT.md.
 
-Also keeps a catalog of every container app the feed has listed, removed ones included, with its last known
-references, and a changelog of what was added, removed or changed (state/catalog.json, changes/YYYY.jsonl).
+Also keeps a catalog of every container app and plugin the feed has listed, removed ones included, with
+its last known references, and a changelog of what was added, removed or changed (state/catalog.json, changes/YYYY.jsonl).
 
 usage: build.py [--feed FILE|URL] [--state DIR] [--out DIR] [--changes DIR] [--jobs N] [--limit N]
 """
@@ -153,7 +153,7 @@ def load_feed(src):
     last = None
     for u in ([src] if src else FEED_URLS):
         try:
-            req = urllib.request.Request(u, headers={'User-Agent': 'template-history-index'})
+            req = urllib.request.Request(u, headers={'User-Agent': 'unraid-app-chronicle'})
             with urllib.request.urlopen(req, timeout=180) as r:
                 return json.load(r)
         except Exception as e:  # try the next mirror
@@ -161,41 +161,54 @@ def load_feed(src):
     sys.exit(f'feed download failed: {last}')
 
 
-# References kept for each app, by feed field. Only addresses and names, never template content.
+# References kept for each app, by feed field. Only addresses, names and versions, never template content.
 APP_FIELDS = {'name': 'Name', 'template_url': None, 'repository': 'Repository', 'registry': 'Registry',
               'support': 'Support', 'project': 'Project', 'ca_repo': 'Repo'}
-APP_FLAGS = ('Deprecated', 'Blacklist', 'ModeratorComment')
+PLUGIN_FIELDS = {'name': 'Name', 'plugin_url': 'PluginURL', 'template_url': 'TemplateURL', 'author': None,
+                 'support': 'Support', 'project': 'Project', 'ca_repo': 'Repo', 'min_ver': 'MinVer', 'max_ver': 'MaxVer'}
+APP_FLAGS = ('Deprecated', 'Blacklist', 'ModeratorComment', 'Incompatible')
 
 
 def _s(v):
-    return v.strip() if isinstance(v, str) else ''
+    return v.strip() if isinstance(v, str) else (str(v) if isinstance(v, (int, float)) and not isinstance(v, bool) else '')
 
 
 def app_url(a):
-    """The template address of a feed entry: TemplateURL, else caTemplateURL."""
+    """The address that identifies a feed entry: PluginURL for a plugin, else TemplateURL, else caTemplateURL."""
+    if a.get('Plugin'):
+        return _s(a.get('PluginURL'))
     return _s(a.get('TemplateURL')) or _s(a.get('caTemplateURL'))
 
 
 def app_key(a):
-    """Stable id of a container app: its template address plus the name of the Community Applications
-    repository that lists it (the same file can be listed by two repositories)."""
+    """Stable id of an app: its address plus the name of the Community Applications repository that lists
+    it (the same file can be listed by two repositories)."""
     return app_url(a) + '#' + _s(a.get('Repo'))
 
 
 def feed_apps(feed):
-    """{key: references} for every container app in the feed (not plugins, not entries without an address)."""
+    """{key: references} for every container app and plugin in the feed with an address."""
     out = {}
     for a in feed.get('applist', []):
-        if a.get('Plugin') or not _s(a.get('Repository')) or not app_url(a):
+        plugin = bool(a.get('Plugin'))
+        if not app_url(a) or (not plugin and not _s(a.get('Repository'))):
             continue
-        r = {k: (_s(a.get(f)) if f else app_url(a)) for k, f in APP_FIELDS.items()}
-        m = RAW.match(r['template_url'])
+        if plugin:
+            r = {k: (_s(a.get(f)) if f else (_s(a.get('PluginAuthor')) or _s(a.get('Author')))) for k, f in PLUGIN_FIELDS.items()}
+        else:
+            r = {k: (_s(a.get(f)) if f else app_url(a)) for k, f in APP_FIELDS.items()}
+        r['kind'] = 'plugin' if plugin else 'container'
+        m = RAW.match(app_url(a))
         r['github'] = f'{m[1]}/{m[2]}' if m else ''
         r['flags'] = sorted(f for f in APP_FLAGS if a.get(f) not in (None, '', False, 'false', 'False'))
         fs = a.get('FirstSeen')
         r['_first'] = int(fs) if str(fs).isdigit() else None
         out[app_key(a)] = r
     return out
+
+
+def _fields(r):
+    return sorted(k for k in r if not k.startswith('_'))
 
 
 def _image(ref):
@@ -211,13 +224,15 @@ def _image(ref):
 
 def update_catalog(catalog, apps, now):
     """Merge today's feed apps into the catalog. Returns the change events, oldest field first.
-    An app that disappears and an app that appears in the same run with the same image and name is
-    one app that moved (its address or listing repository changed)."""
+    An app that disappears and an app that appears in the same run with the same name and the same image
+    (containers) or author (plugins) is one app that moved (its address or listing repository changed)."""
     events = []
     added = [k for k in apps if k not in catalog or catalog[k].get('removed')]
     gone = [k for k, c in catalog.items() if not c.get('removed') and k not in apps]
     def ident(r):
-        return (_image(r['repository']), r['name'].lower())
+        if r.get('kind') == 'plugin':
+            return ('plugin', r.get('author', '').lower(), r['name'].lower())
+        return ('container', _image(r.get('repository', '')), r['name'].lower())
     gone_by = {}
     for k in gone:
         gone_by.setdefault(ident(catalog[k]), []).append(k)
@@ -234,9 +249,9 @@ def update_catalog(catalog, apps, now):
             catalog[n] = c
             gone.remove(o)
             added.remove(n)
-            ch = {f: [c.get(f), apps[n][f]] for f in list(APP_FIELDS) + ['github', 'flags'] if c.get(f) != apps[n][f]}
-            events.append({'event': 'moved', 'key': n, 'from': o, 'name': apps[n]['name'], 'changes': ch})
-            for f in list(APP_FIELDS) + ['github', 'flags']:
+            ch = {f: [c.get(f), apps[n][f]] for f in _fields(apps[n]) if c.get(f) != apps[n][f]}
+            events.append({'event': 'moved', 'kind': apps[n]['kind'], 'key': n, 'from': o, 'name': apps[n]['name'], 'changes': ch})
+            for f in _fields(apps[n]):
                 c[f] = apps[n][f]
             c['last_seen'] = now
     for k in sorted(added):
@@ -244,24 +259,24 @@ def update_catalog(catalog, apps, now):
         if k in catalog:
             c = catalog[k]
             c.pop('removed', None)
-            events.append({'event': 'returned', 'key': k, 'name': r['name']})
+            events.append({'event': 'returned', 'kind': r['kind'], 'key': k, 'name': r['name']})
         else:
             c = catalog[k] = {'first_seen': r['_first'] or now}
-            events.append({'event': 'added', 'key': k, 'name': r['name']})
-        for f in list(APP_FIELDS) + ['github', 'flags']:
+            events.append({'event': 'added', 'kind': r['kind'], 'key': k, 'name': r['name']})
+        for f in _fields(r):
             c[f] = r[f]
         c['last_seen'] = now
     for k in sorted(gone):
         c = catalog[k]
         c['removed'] = True
-        events.append({'event': 'removed', 'key': k, 'name': c['name'], 'last_seen': c['last_seen']})
+        events.append({'event': 'removed', 'kind': c.get('kind'), 'key': k, 'name': c['name'], 'last_seen': c['last_seen']})
     for k, r in sorted(apps.items()):
         c = catalog[k]
         if c.get('last_seen') == now:
             continue
-        ch = {f: [c.get(f), r[f]] for f in list(APP_FIELDS) + ['github', 'flags'] if c.get(f) != r[f]}
+        ch = {f: [c.get(f), r[f]] for f in _fields(r) if c.get(f) != r[f]}
         if ch:
-            events.append({'event': 'changed', 'key': k, 'name': r['name'], 'changes': ch})
+            events.append({'event': 'changed', 'kind': r['kind'], 'key': k, 'name': r['name'], 'changes': ch})
             for f in ch:
                 c[f] = r[f]
         c['last_seen'] = now
@@ -273,6 +288,8 @@ def catalog_targets(catalog):
     removed ones and earlier addresses of moved ones included, so their history stays in the index."""
     out = {}
     for c in catalog.values():
+        if c.get('kind') != 'container':
+            continue  # plugins: references only, no field history
         for u in [c.get('template_url') or ''] + [k.split('#', 1)[0] for k in c.get('moved_from', [])]:
             m = RAW.match(u)
             if m:
@@ -497,7 +514,8 @@ def main():
     ev = {}
     for e in events:
         ev[e['event']] = ev.get(e['event'], 0) + 1
-    summary = {'apps': len(cat['apps']), 'apps_removed': sum(1 for c in cat['apps'].values() if c.get('removed')),
+    summary = {'apps': len(cat['apps']), 'plugins': sum(1 for c in cat['apps'].values() if c.get('kind') == 'plugin'),
+               'apps_removed': sum(1 for c in cat['apps'].values() if c.get('removed')),
                'changes_this_run': ev, 'repos': len(targets), 'repos_indexed': len(index['repos']), 'files': len(index['files']),
                'versions': sum(len(v) for v in index['files'].values()), 'distinct_sets': len(index['sets']), 'distinct_secret_infos': len(index['secrets']),
                'raw_bytes': len(raw), 'gzip_bytes': len(gz), 'seconds': round(time.time() - t0, 1), 'status': counts}
