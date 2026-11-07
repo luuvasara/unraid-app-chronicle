@@ -26,12 +26,16 @@ ENV = dict(os.environ, GIT_TERMINAL_PROMPT='0', GIT_ASKPASS='true', GIT_NO_LAZY_
 MAX_BLOB = 1024 * 1024  # a template larger than this is skipped
 # GitHub limits anonymous git over HTTPS (HTTP 401 after a few hundred repositories). With a token in
 # INDEX_GIT_TOKEN (in Actions: the job's GITHUB_TOKEN) every git call sends it as a header, passed
-# through the environment so it never appears in a command line.
+# through the environment so it never appears in a command line. The empty value first clears any
+# header already configured for github.com (actions/checkout sets one), which GitHub would otherwise
+# refuse as a duplicate Authorization header.
 if os.environ.get('INDEX_GIT_TOKEN'):
     import base64
     _auth = base64.b64encode(f"x-access-token:{os.environ['INDEX_GIT_TOKEN']}".encode()).decode()
-    ENV.update(GIT_CONFIG_COUNT='1', GIT_CONFIG_KEY_0='http.https://github.com/.extraheader',
-               GIT_CONFIG_VALUE_0=f'Authorization: basic {_auth}')
+    ENV.update(GIT_CONFIG_COUNT='2',
+               GIT_CONFIG_KEY_0='http.https://github.com/.extraheader', GIT_CONFIG_VALUE_0='',
+               GIT_CONFIG_KEY_1='http.https://github.com/.extraheader',
+               GIT_CONFIG_VALUE_1=f'Authorization: basic {_auth}')
     ENV.pop('INDEX_GIT_TOKEN', None)
 
 
@@ -490,6 +494,9 @@ def main():
             if n % 100 == 0:
                 bad = sum(1 for v in status.values() if v.startswith(('unreachable', 'clone failed', 'timeout')))
                 print(f'{n}/{len(futs)} {time.time() - t0:.0f}s, {bad} failed', flush=True)
+                if bad == n:
+                    ex.shutdown(wait=False, cancel_futures=True)
+                    sys.exit(f'all {n} repositories failed so far; stopping (see the errors above)')
             if not part:
                 continue
             index['repos'][name] = part['heads']
