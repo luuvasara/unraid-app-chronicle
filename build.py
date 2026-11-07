@@ -16,7 +16,18 @@ FEED_URLS = ['https://ca.unraid.net/assets/feed/applicationFeed.json',
              'https://assets.ca.unraid.net/feed/applicationFeed.json',
              'https://raw.githubusercontent.com/Squidly271/AppFeed/master/applicationFeed.json']
 RAW = re.compile(r'^https://raw\.githubusercontent\.com/([^/]+)/([^/]+)/(.+)$')
-ENV = dict(os.environ, GIT_TERMINAL_PROMPT='0', GIT_ASKPASS='true')
+# GIT_NO_LAZY_FETCH: a blob left out by the clone filter stays missing instead of being fetched one by one.
+ENV = dict(os.environ, GIT_TERMINAL_PROMPT='0', GIT_ASKPASS='true', GIT_NO_LAZY_FETCH='1')
+MAX_BLOB = 1024 * 1024  # a template larger than this is skipped
+# GitHub limits anonymous git over HTTPS (HTTP 401 after a few hundred repositories). With a token in
+# INDEX_GIT_TOKEN (in Actions: the job's GITHUB_TOKEN) every git call sends it as a header, passed
+# through the environment so it never appears in a command line.
+if os.environ.get('INDEX_GIT_TOKEN'):
+    import base64
+    _auth = base64.b64encode(f"x-access-token:{os.environ['INDEX_GIT_TOKEN']}".encode()).decode()
+    ENV.update(GIT_CONFIG_COUNT='1', GIT_CONFIG_KEY_0='http.https://github.com/.extraheader',
+               GIT_CONFIG_VALUE_0=f'Authorization: basic {_auth}')
+    ENV.pop('INDEX_GIT_TOKEN', None)
 
 
 def field_key(type_, target, name, mode):
@@ -81,8 +92,16 @@ def git(*args, cwd=None, timeout=900):
 
 
 def heads(owner, repo):
-    r = git('ls-remote', '--heads', f'https://github.com/{owner}/{repo}.git', timeout=60)
-    if r.returncode:
+    """{branch: sha}, {} for a repository that is gone, or None when GitHub would not answer."""
+    for wait in (0, 5, 30):
+        time.sleep(wait)
+        r = git('ls-remote', '--heads', '--end-of-options', f'https://github.com/{owner}/{repo}.git', timeout=60)
+        if r.returncode == 0:
+            break
+        err = r.stderr.decode()
+        if 'not found' in err.lower() or 'error: 404' in err:
+            return {}
+    else:
         return None
     h = {}
     for line in r.stdout.decode().splitlines():
@@ -101,7 +120,7 @@ def split_branch(rest, branches):
 
 def history(gitdir, branch, paths):
     """{path: [[time, sha7, set_id], ...]} and the sets seen, oldest first, one entry per field-set change."""
-    log = git('log', '--format=#%H %ct', '--name-only', '--diff-filter=AMR', '--no-renames', branch, '--', *paths,
+    log = git('log', '--format=#%H %ct', '--name-only', '--diff-filter=AMR', '--no-renames', '--end-of-options', f'refs/heads/{branch}', '--', *paths,
               cwd=gitdir, timeout=900)
     per, cur, want = {}, None, set(paths)
     for line in log.stdout.decode('utf8', 'replace').split('\n'):
@@ -117,9 +136,19 @@ def history(gitdir, branch, paths):
             for sha, ct in reversed(commits):
                 cat.stdin.write(f'{sha}:{p}\n'.encode()); cat.stdin.flush()
                 head = cat.stdout.readline().split()
-                if len(head) < 3 or head[1] != b'blob':
+                if len(head) < 3:  # "<name> missing": filtered out by the clone, or gone
                     continue
-                data = cat.stdout.read(int(head[2])); cat.stdout.read(1)
+                size = int(head[2])
+                if head[1] != b'blob' or size > MAX_BLOB:
+                    while size > 0:  # drain it, keep the stream in step
+                        size -= len(cat.stdout.read(min(size, 1 << 16)))
+                    cat.stdout.read(1)
+                    if head[1] == b'blob':
+                        print(f'skipped {p} at {sha[:7]}: {int(head[2])} bytes', file=sys.stderr)
+                    continue
+                data = cat.stdout.read(size); cat.stdout.read(1)
+                if b'<!DOCTYPE' in data or b'<!ENTITY' in data:  # no entity expansion, ever
+                    continue
                 f = field_set(data.decode('utf8', 'replace'))
                 if f is None:
                     continue
@@ -143,6 +172,8 @@ def build_repo(owner, repo, rests, state_dir, work):
     h = heads(owner, repo)
     if h is None:
         return name, old, 'unreachable' + (' (kept old part)' if old else '')
+    if not h:
+        return name, None, 'gone'
     wanted = {}
     for rest in rests:
         b, p = split_branch(rest, h)
@@ -162,7 +193,7 @@ def build_repo(owner, repo, rests, state_dir, work):
             return name, old, 'clone failed: ' + r.stderr.decode()[-200:].strip()
         if any(b not in h for b in wanted):
             return name, old, 'branch vanished'
-        git('fetch', '--quiet', 'origin', *[f'+refs/heads/{b}:refs/heads/{b}' for b in wanted], cwd=d, timeout=900)
+        git('fetch', '--quiet', '--end-of-options', 'origin', *[f'+refs/heads/{b}:refs/heads/{b}' for b in wanted], cwd=d, timeout=900)
         files, sets = {}, {}
         for b, paths in want_paths.items():
             f, s = history(d, b, paths)
@@ -195,7 +226,8 @@ def main():
     targets = sorted(feed_targets(feed).items())
     if a.limit:
         targets = targets[:a.limit]
-    os.makedirs(a.work, exist_ok=True); os.makedirs(a.out, exist_ok=True)
+    for d in (a.work, a.out, a.state):
+        os.makedirs(d, exist_ok=True)
     index = {'format': FORMAT, 'generated': int(time.time()), 'feed_updated': feed.get('last_updated_timestamp'),
              'repos': {}, 'sets': {}, 'files': {}}
     status = {}

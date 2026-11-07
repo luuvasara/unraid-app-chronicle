@@ -27,6 +27,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: Build
+        env:
+          INDEX_GIT_TOKEN: ${{ github.token }}
         run: python3 build.py --jobs 8 --state state --out public --work "$RUNNER_TEMP/work"
       - name: Save per-repository parts
         # The parts let tomorrow's run rebuild only repositories whose branch moved. The commit is also
