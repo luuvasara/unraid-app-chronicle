@@ -1,0 +1,45 @@
+name: Build index
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-index
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build
+        run: python3 build.py --jobs 8 --state state --out public --work "$RUNNER_TEMP/work"
+      - name: Save per-repository parts
+        # The parts let tomorrow's run rebuild only repositories whose branch moved. The commit is also
+        # the repository activity that keeps the schedule enabled (scheduled workflows in a public
+        # repository stop after 60 days without activity).
+        run: |
+          git config user.name 'index-bot'
+          git config user.email 'index-bot@users.noreply.github.com'
+          git add state
+          git diff --cached --quiet || git commit -q -m "Index state $(date -u +%F)"
+          git push -q origin HEAD:main
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deploy
+        uses: actions/deploy-pages@v4
