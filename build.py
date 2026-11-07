@@ -11,7 +11,8 @@ import argparse, gzip, hashlib, json, os, re, shutil, subprocess, sys, tempfile,
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 
-FORMAT = 1
+FORMAT = 2
+PART_VERSION = 3  # saved repository parts from an older build are rebuilt
 FEED_URLS = ['https://ca.unraid.net/assets/feed/applicationFeed.json',
              'https://assets.ca.unraid.net/feed/applicationFeed.json',
              'https://raw.githubusercontent.com/Squidly271/AppFeed/master/applicationFeed.json']
@@ -47,16 +48,95 @@ def field_key(type_, target, name, mode):
     return f"{t}:{tg}"
 
 
-def field_set(xml):
-    """Sorted field keys of a template, or None when it does not parse or is not a container template."""
+# Secret-like field names. Names are split into upper-case words (FOO_BAR, fooBar, "Foo bar").
+SECRET_WORDS = {'PASSWORD', 'PASSWD', 'PASS', 'PWD', 'PASSPHRASE', 'SECRET', 'SECRETS', 'TOKEN', 'TOKENS', 'APIKEY',
+                'CREDENTIAL', 'CREDENTIALS', 'CREDS', 'OTP', 'TOTP', 'WEBHOOK', 'DSN', 'PSK', 'PRIVATE'}
+# KEY counts only after one of these words (API_KEY, SECRET_KEY, LICENSE KEY, ...), never alone or after PUBLIC.
+KEY_AFTER = {'API', 'ACCESS', 'SECRET', 'PRIVATE', 'LICENSE', 'LICENCE', 'AUTH', 'ENCRYPTION', 'CRYPT', 'SIGNING',
+             'APP', 'CLIENT', 'MASTER', 'SESSION', 'JWT', 'HMAC', 'WG', 'WIREGUARD', 'ENC', 'SHARED', 'PRODUCT', 'SERIAL'}
+# A name that also has one of these words describes the secret, it does not hold one.
+NOT_SECRET = {'FILE', 'PATH', 'DIR', 'LENGTH', 'LEN', 'ENABLE', 'ENABLED', 'DISABLE', 'DISABLED', 'POLICY', 'EXPIRY',
+              'EXPIRE', 'EXPIRES', 'TTL', 'TIMEOUT', 'MIN', 'MAX', 'REQUIRED', 'RESET', 'TYPE', 'MODE', 'METHOD', 'HEADER',
+              'URL_PATH', 'COMPLEXITY', 'LOGIN_ATTEMPTS', 'PORT', 'HOST', 'USER', 'USERNAME', 'NAME', 'BYPASS', 'PASSTHROUGH',
+              'COMPASS', 'PASSIVE', 'PUBLIC', 'PUID', 'PGID', 'THROUGH',
+              'RANDOM', 'ALLOW', 'EMPTY', 'VALIDITY', 'TIME', 'GENERATE', 'SKIP'}
+DB_URL = {'DATABASE_URL', 'DB_URL', 'CONNECTION_STRING', 'DB_CONNECTION_STRING', 'MONGO_URL', 'MONGODB_URI'}
+SECRET_FLAGS = re.compile(r'(?:^|\s)(--(?:password|passwd|pass|token|api-?key|secret|auth-?key|credentials?))(?:[=\s]|$)', re.I)
+ENV_ARG = re.compile(r'(?:^|\s)(?:-e|--env)(?:\s+|=)[\'"]?([A-Za-z_][A-Za-z0-9_.]*)=')
+
+
+def words(name):
+    n = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', name.strip())
+    return [w for w in re.split(r'[^A-Za-z0-9]+', n.upper()) if w]
+
+
+def secret_like(name):
+    """True when a variable or label name looks like it holds a secret value. See FORMAT.md."""
+    if not name:
+        return False
+    w = words(name)
+    if '_'.join(w) in DB_URL:
+        return True
+    if any(x in NOT_SECRET for x in w):
+        return False
+    if any(x in SECRET_WORDS for x in w):
+        return True
+    return any(x == 'KEY' and i > 0 and w[i - 1] in KEY_AFTER for i, x in enumerate(w)) or \
+        any(x.endswith(('APIKEY', 'SECRETKEY', 'PRIVATEKEY', 'AUTHKEY', 'ACCESSKEY')) for x in w)
+
+
+def arg_secrets(text):
+    """Secret-like keys in an ExtraParams / PostArgs default: '--password' style flags and -e NAME= with a
+    secret-like NAME. Only the flag or variable name is returned, never a value."""
+    out = set()
+    for m in SECRET_FLAGS.finditer(text or ''):
+        out.add('flag:' + m[1].lower())
+    for m in ENV_ARG.finditer(text or ''):
+        if secret_like(m[1]):
+            out.add('env:' + m[1])
+    return out
+
+
+def parse(xml):
+    """(sorted field keys, secret info) of a template, or None when it does not parse or is not a
+    container template. Secret info: m = keys with Mask="true", s = secret-like variable/label keys,
+    x = secret-like keys in ExtraParams/PostArgs. Lists are sorted; no value is ever kept."""
     try:
         root = ET.fromstring(xml)
     except ET.ParseError:
         return None
     if root.find('Name') is None:
         return None
-    return sorted({field_key(c.get('Type') or '', c.get('Target') or '', c.get('Name') or '', c.get('Mode') or '')
-                   for c in root.findall('Config')})
+    keys, m, s = set(), set(), set()
+    for c in root.findall('Config'):
+        k = field_key(c.get('Type') or '', c.get('Target') or '', c.get('Name') or '', c.get('Mode') or '')
+        keys.add(k)
+        if (c.get('Mask') or '').strip().lower() == 'true':
+            m.add(k)
+        t = (c.get('Type') or '').strip().lower()
+        if t.startswith('disabled:'):
+            t = t[9:]
+        if t in ('variable', 'label') and (secret_like(c.get('Target') or '') or secret_like(c.get('Name') or '')):
+            s.add(k)
+    x = set()
+    for tag in ('ExtraParams', 'PostArgs'):
+        e = root.find(tag)
+        if e is not None and e.text:
+            x |= {f'{tag.lower()}:{v}' for v in arg_secrets(e.text)}
+    return sorted(keys), {'m': sorted(m), 's': sorted(s), 'x': sorted(x)}
+
+
+def field_set(xml):
+    """Sorted field keys of a template, or None (kept for callers of format 1)."""
+    p = parse(xml)
+    return p[0] if p else None
+
+
+def sec_id(sec):
+    """Id of a secret info object, or None when it is empty."""
+    if not (sec['m'] or sec['s'] or sec['x']):
+        return None
+    return hashlib.sha1(json.dumps(sec, sort_keys=True, separators=(',', ':')).encode()).hexdigest()[:10]
 
 
 def set_id(fields):
@@ -129,7 +209,7 @@ def history(gitdir, branch, paths):
         elif line in want and cur:
             per.setdefault(line, []).append(cur)
     cat = subprocess.Popen(['git', 'cat-file', '--batch'], cwd=gitdir, stdin=subprocess.PIPE, stdout=subprocess.PIPE, env=ENV)
-    files, sets = {}, {}
+    files, sets, secs = {}, {}, {}
     try:
         for p, commits in per.items():
             versions, last = [], None
@@ -149,19 +229,23 @@ def history(gitdir, branch, paths):
                 data = cat.stdout.read(size); cat.stdout.read(1)
                 if b'<!DOCTYPE' in data or b'<!ENTITY' in data:  # no entity expansion, ever
                     continue
-                f = field_set(data.decode('utf8', 'replace'))
-                if f is None:
+                pr = parse(data.decode('utf8', 'replace'))
+                if pr is None:
                     continue
+                f, sec = pr
                 i = set_id(f)
                 sets[i] = f
-                if i != last:
-                    versions.append([int(ct), sha[:7], i])
-                    last = i
+                j = sec_id(sec)
+                if j:
+                    secs[j] = sec
+                if (i, j) != last:
+                    versions.append([int(ct), sha[:7], i, j])
+                    last = (i, j)
             if versions:
                 files[p] = versions
     finally:
         cat.stdin.close(); cat.wait()
-    return files, sets
+    return files, sets, secs
 
 
 def build_repo(owner, repo, rests, state_dir, work):
@@ -183,7 +267,7 @@ def build_repo(owner, repo, rests, state_dir, work):
         return name, None, 'no branch matches'
     want_heads = {b: h[b] for b in wanted}
     want_paths = {b: sorted(v) for b, v in wanted.items()}
-    if old and old.get('heads') == want_heads and old.get('paths') == want_paths:
+    if old and old.get('v') == PART_VERSION and old.get('heads') == want_heads and old.get('paths') == want_paths:
         return name, old, 'unchanged'
     d = tempfile.mkdtemp(dir=work)
     try:
@@ -194,13 +278,14 @@ def build_repo(owner, repo, rests, state_dir, work):
         if any(b not in h for b in wanted):
             return name, old, 'branch vanished'
         git('fetch', '--quiet', '--end-of-options', 'origin', *[f'+refs/heads/{b}:refs/heads/{b}' for b in wanted], cwd=d, timeout=900)
-        files, sets = {}, {}
+        files, sets, secs = {}, {}, {}
         for b, paths in want_paths.items():
-            f, s = history(d, b, paths)
+            f, s, x = history(d, b, paths)
             sets.update(s)
+            secs.update(x)
             for p, v in f.items():
                 files[f'{b}/{p}'] = v
-        part = {'heads': want_heads, 'paths': want_paths, 'files': files, 'sets': sets}
+        part = {'v': PART_VERSION, 'heads': want_heads, 'paths': want_paths, 'files': files, 'sets': sets, 'secrets': secs}
         os.makedirs(os.path.dirname(part_file), exist_ok=True)
         with open(part_file + '.tmp', 'w') as fh:
             json.dump(part, fh, separators=(',', ':'), sort_keys=True)
@@ -229,7 +314,7 @@ def main():
     for d in (a.work, a.out, a.state):
         os.makedirs(d, exist_ok=True)
     index = {'format': FORMAT, 'generated': int(time.time()), 'feed_updated': feed.get('last_updated_timestamp'),
-             'repos': {}, 'sets': {}, 'files': {}}
+             'repos': {}, 'sets': {}, 'secrets': {}, 'files': {}}
     status = {}
     with ThreadPoolExecutor(a.jobs) as ex:
         futs = [ex.submit(build_repo, o, r, rests, a.state, a.work) for (o, r), rests in targets]
@@ -242,6 +327,7 @@ def main():
                 continue
             index['repos'][name] = part['heads']
             index['sets'].update(part['sets'])
+            index['secrets'].update(part.get('secrets', {}))
             for k, v in part['files'].items():
                 index['files'][f'{name}/{k}'] = v
     raw = json.dumps(index, separators=(',', ':'), sort_keys=True).encode()
@@ -254,7 +340,7 @@ def main():
         k = v.split(':')[0].split(' (')[0]
         counts[k] = counts.get(k, 0) + 1
     summary = {'repos_in_feed': len(targets), 'repos_indexed': len(index['repos']), 'files': len(index['files']),
-               'versions': sum(len(v) for v in index['files'].values()), 'distinct_sets': len(index['sets']),
+               'versions': sum(len(v) for v in index['files'].values()), 'distinct_sets': len(index['sets']), 'distinct_secret_infos': len(index['secrets']),
                'raw_bytes': len(raw), 'gzip_bytes': len(gz), 'seconds': round(time.time() - t0, 1), 'status': counts}
     json.dump(summary, open(os.path.join(a.out, 'summary.json'), 'w'), indent=1)
     print(json.dumps(summary))

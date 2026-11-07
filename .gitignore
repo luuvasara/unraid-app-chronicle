@@ -1,3 +1,7 @@
 work/
+work-*/
 public/
+public-*/
 __pycache__/
+*.log
+*.err
