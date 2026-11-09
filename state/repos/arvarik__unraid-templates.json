@@ -1,0 +1,1 @@
+{"files":{"main/templates/contrack.xml":[[1794205794,"fbe676a","7ad23f1a6f",null]]},"heads":{"main":"fbe676ac104c8476f9ea6887f5c1550bd9f835d7"},"paths":{"main":["templates/contrack.xml"]},"secrets":{},"sets":{"7ad23f1a6f":["path:/app/data","port:3210/tcp","variable:ALLOWED_HOSTS","variable:AUTH_REQUIRED","variable:PUBLIC_URL","variable:TRUST_PROXY_HOPS"]},"v":3}

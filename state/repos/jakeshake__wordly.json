@@ -1,0 +1,1 @@
+{"files":{"main/templates/wordly.xml":[[1793687292,"c0a4248","2cf673fcfa",null]]},"heads":{"main":"f7b3248ad567aaf52666fb8eab87d2ce0587b889"},"paths":{"main":["templates/wordly.xml"]},"secrets":{},"sets":{"2cf673fcfa":["path:/data","port:80/tcp","variable:RATE_LIMIT_READS","variable:RATE_LIMIT_WRITES","variable:TRUST_PROXY"]},"v":3}
