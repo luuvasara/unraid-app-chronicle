@@ -1,0 +1,1 @@
+{"files":{"main/unraid/syncine.xml":[[1794222431,"861bbb4","73eec55dff",null]]},"heads":{"main":"0f6bdc4549a51347818a0f5fa28048a0d881fcd3"},"paths":{"main":["unraid/syncine.xml"]},"secrets":{},"sets":{"73eec55dff":["path:/app/data","port:8000/tcp","variable:CINESYNC_MODE","variable:PGID","variable:PUBLIC_URL","variable:PUID","variable:TZ"]},"v":3}
