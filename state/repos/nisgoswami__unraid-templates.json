@@ -1,1 +1,1 @@
-{"files":{"main/templates/bifrost-ai-gateway.xml":[[1794184292,"2b56d7a","720e688bcb",null]]},"heads":{"main":"4eb235bd14580ec74703686f1c1c6a4d123800e6"},"paths":{"main":["templates/bifrost-ai-gateway.xml"]},"secrets":{},"sets":{"720e688bcb":["path:/app/data","port:8080/tcp"]},"v":3}
+{"files":{"main/templates/bifrost-ai-gateway.xml":[[1794184292,"2b56d7a","720e688bcb",null]]},"heads":{"main":"6820c4bee375103ebf1aeed29866edf6c519792b"},"paths":{"main":["templates/bifrost-ai-gateway.xml"]},"secrets":{},"sets":{"720e688bcb":["path:/app/data","port:8080/tcp"]},"v":3}

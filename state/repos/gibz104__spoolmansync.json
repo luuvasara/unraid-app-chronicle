@@ -1,1 +1,1 @@
-{"files":{"main/unraid/spoolmansync.xml":[[1770838841,"976df0f","e9d1719622",null]]},"heads":{"main":"1fcae49af702298db59eef35bd8f00c9faeb27b4"},"paths":{"main":["unraid/spoolmansync.xml"]},"secrets":{},"sets":{"e9d1719622":["path:/data","port:3000/tcp","variable:HA_MODE"]},"v":3}
+{"files":{"main/unraid/spoolmansync.xml":[[1770838841,"976df0f","e9d1719622",null]]},"heads":{"main":"247148c6a87ed11094abdc4280b74d519c5e5d5d"},"paths":{"main":["unraid/spoolmansync.xml"]},"secrets":{},"sets":{"e9d1719622":["path:/data","port:3000/tcp","variable:HA_MODE"]},"v":3}
