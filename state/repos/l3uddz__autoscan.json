@@ -1,0 +1,1 @@
+{"files":{"master/unraid/autoscan.xml":[[1794165333,"1bd3e22","be269afd34",null]]},"heads":{"master":"069e0e5d9273990f1cc9db0f191bb3b134252f23"},"paths":{"master":["unraid/autoscan.xml"]},"secrets":{},"sets":{"be269afd34":["path:/config","path:/media","port:3030/tcp","variable:AUTOSCAN_VERBOSITY"]},"v":3}
