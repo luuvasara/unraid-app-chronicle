@@ -86,3 +86,8 @@ per change, so the catalog's own history can be followed day by day.
 The per-repository results are kept in `state/`, so a later run only rebuilds repositories whose
 branch has moved. `state/` and `changes/` are committed by the daily build: the app list and the
 changelog cannot be rebuilt from a later feed. `python3 build.py --help` lists the options.
+
+Every value from the feed and from the templates is treated as untrusted: it is checked for type,
+length, characters and (for links) the `http`/`https` scheme before it reaches the index, and what
+fails is left out and counted in the build log. The limits are in [FORMAT.md](FORMAT.md).
+`python3 -I tests/test_hostile.py` runs the hostile-input tests (no network needed).

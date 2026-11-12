@@ -77,6 +77,35 @@ One JSON document, served as `index.json.gz` (gzip) and `index.json`. Rebuilt on
   - The id is the first 10 hex digits of SHA-1 over the object as compact JSON with sorted keys.
 - Nothing else is kept: no Default, Description or any value.
 
+## Limits and checks
+
+Feed entries and templates are written by third parties, so the build checks every value before it goes
+into the index (`LIMITS` and `clean_record()` in `build.py`). What fails is left out and counted: the
+counts are in the build log and in `summary.json` (`rejected`). One bad entry never stops a build; a feed
+that cannot be read, or an index that would fail these checks, does, and the last published index stays.
+
+- Text (`name`, `ca_repo`, `author`): a string or number; control characters (C0, C1, DEL), zero-width and
+  bidi-override characters, line and paragraph separators and lone surrogates are removed; at most 200
+  characters. `min_ver`, `max_ver`: at most 32. An app whose name or catalog repository name fails is left out.
+- Addresses (`template_url`, `plugin_url`, `registry`, `support`, `project`): `http` or `https` only, with a
+  host, no user info, no spaces, quotes, angle brackets, backslashes or control characters, at most 2048
+  characters. A link that fails is written as `""`; an app whose own address fails is left out.
+- `repository` (containers): letters, digits and `. _ / : @ -`, starting with a letter or digit, at most
+  255 characters. A container whose image fails is left out.
+- `github` and the template history: only a raw GitHub address with a valid owner (letters, digits and
+  `-`, at most 39) and repository (letters, digits and `. _ -`, at most 100), and a path of at most 1024
+  characters with no empty, `.` or `..` segment and no backslash, is cloned and indexed.
+- Field keys (in `sets` and `secrets`): at most 512 characters and no control character; a template
+  version with more than 2000 fields or any key that fails is left out of the history.
+- `files`: at most 500 versions per template (the newest are kept); 200000 files and 100000 apps in all.
+- `first_seen`, `last_seen`, `feed_updated`: whole Unix seconds, not more than a day ahead. A feed whose
+  `last_updated_timestamp` fails is refused.
+- A feed over 256 MiB is refused before it is parsed. A feed with less than half the apps the catalog
+  lists (once it lists 500 or more) is refused as truncated. An index over 64 MiB is not published.
+- Output: `index.json`, `summary.json` and `changes/*.jsonl` are JSON with every non-ASCII character and
+  every `<`, `>` and `&` written as a `\u` escape, so no string in them can act as markup even when a
+  reader embeds the JSON in a page. Readers should still escape every value for where they show it.
+
 Only templates the Community Applications feed lists or has listed are indexed. Within a repository,
 history before a file was moved is followed only when the feed's address changed with it (`moved_from`).
 
