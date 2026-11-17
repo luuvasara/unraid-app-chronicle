@@ -1,0 +1,1 @@
+{"files":{"main/templates/monido.xml":[[1794823518,"bff7b4e","1a0165c8c8",null]]},"heads":{"main":"8a75f8f2bc99c184e74af8d74f058abd7c6181b1"},"paths":{"main":["templates/monido.xml"]},"secrets":{},"sets":{"1a0165c8c8":["path:/data","port:8080/tcp","variable:APP_URL","variable:CLIENT_IP_HEADER","variable:PGID","variable:PUID"]},"v":3}
