@@ -1,0 +1,1 @@
+{"files":{"main/templates/narratarr.xml":[[1795020793,"f807736","96009dfbae",null]]},"heads":{"main":"f807736dee95338b622227a4f4ee35e0ef6627e2"},"paths":{"main":["templates/narratarr.xml"]},"secrets":{},"sets":{"96009dfbae":["path:/audiobooks","path:/config","path:/downloads","port:8484/tcp","variable:PGID","variable:PUID"]},"v":3}
