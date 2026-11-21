@@ -1,0 +1,1 @@
+{"files":{"main/embroidery-converter.xml":[[1795163590,"6c3d70d","5b7b9b9afe",null]]},"heads":{"main":"6c3d70de7f4828481c59521b9d69569dcbea450c"},"paths":{"main":["embroidery-converter.xml"]},"secrets":{},"sets":{"5b7b9b9afe":["port:8080/tcp","variable:SHOW_CREDIT"]},"v":3}

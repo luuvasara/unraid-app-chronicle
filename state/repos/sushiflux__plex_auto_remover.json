@@ -1,0 +1,1 @@
+{"files":{"main/templates/plex-auto-remover.xml":[[1795198544,"14cf91e","7b6122b9c0",null]]},"heads":{"main":"37ae01d584f030a4b577587f2d236d992bb27e09"},"paths":{"main":["templates/plex-auto-remover.xml"]},"secrets":{},"sets":{"7b6122b9c0":["path:/config","path:/media","port:8080/tcp","variable:PGID","variable:PUID"]},"v":3}
