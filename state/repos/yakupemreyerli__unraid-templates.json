@@ -1,0 +1,1 @@
+{"files":{"main/templates/coinio.xml":[[1795271411,"5dc493c","f2de6f0e8e",null]]},"heads":{"main":"b068103d26e6d6a49f6ec37d0d4aad15208e65c7"},"paths":{"main":["templates/coinio.xml"]},"secrets":{},"sets":{"f2de6f0e8e":["path:/data","port:8080/tcp","variable:COINIO_PUBLIC_URL","variable:TZ"]},"v":3}

@@ -1,0 +1,1 @@
+{"files":{"main/templates/artcraft-all-apps.xml":[[1795308106,"8e16447","86420fb949",null]]},"heads":{"main":"8b596e878a3f6b3163c33f59e2788e46f484ecb1"},"paths":{"main":["templates/artcraft-all-apps.xml"]},"secrets":{},"sets":{"86420fb949":["path:/config","port:3001/tcp","variable:PGID","variable:PUID","variable:TZ"]},"v":3}
