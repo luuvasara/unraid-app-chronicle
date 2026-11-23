@@ -1,0 +1,1 @@
+{"files":{"main/delta.xml":[[1795339374,"8a9293d","6bc53155df",null]]},"heads":{"main":"8a9293d6c390bba23002e797b4e19285774aa7cf"},"paths":{"main":["delta.xml"]},"secrets":{},"sets":{"6bc53155df":["path:/data","port:3000/tcp","variable:DELTA_ALLOWED_NETWORKS","variable:DELTA_INSTALL","variable:DELTA_JOBS","variable:DELTA_URL"]},"v":3}

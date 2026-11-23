@@ -1,0 +1,1 @@
+{"files":{"main/replado.xml":[[1795364615,"3dd092f","51cd87872e",null]]},"heads":{"main":"2107b328a75b2427a3d16e0ce49513e6a7babf43"},"paths":{"main":["replado.xml"]},"secrets":{},"sets":{"51cd87872e":["path:/data","port:8000/tcp","port:8443/tcp","variable:PGID","variable:PUID","variable:REPLADO_INSTALL_KIND","variable:TZ"]},"v":3}
