@@ -1,0 +1,1 @@
+{"files":{"main/templates/gamesync.xml":[[1795546325,"da32c36","9691efeae0",null]]},"heads":{"main":"e587ee3d56c2073b3b7f1fea9ddb7344d8e4fa4f"},"paths":{"main":["templates/gamesync.xml"]},"secrets":{},"sets":{"9691efeae0":["path:/var/lib/gamesync","port:8787/tcp","variable:GAMESYNC_KEEP_COUNT","variable:GAMESYNC_KEEP_DAYS"]},"v":3}

@@ -1,1 +1,1 @@
-{"files":{"main/media-curator.xml":[[1784507941,"760c472","74f50ea54c",null]]},"heads":{"main":"92fed49ba11adb0634979be50d2c416dce359e05"},"paths":{"main":["media-curator.xml"]},"secrets":{},"sets":{"74f50ea54c":["path:/data","path:/media","port:8420/tcp","variable:TZ"]},"v":3}
+{"files":{"main/media-curator.xml":[[1784507941,"760c472","74f50ea54c",null]]},"heads":{"main":"f0902d966cf70a1674fe9f9b3aba92549663336e"},"paths":{"main":["media-curator.xml"]},"secrets":{},"sets":{"74f50ea54c":["path:/data","path:/media","port:8420/tcp","variable:TZ"]},"v":3}
