@@ -1,0 +1,1 @@
+{"files":{"main/templates/moneythistle.xml":[[1795663952,"1f53782","a2c6b7543d",null]]},"heads":{"main":"1f537824d800efdc4220ec90b8cebe51b38c3ad4"},"paths":{"main":["templates/moneythistle.xml"]},"secrets":{},"sets":{"a2c6b7543d":["path:/backups","path:/data","port:8080/tcp","variable:TZ"]},"v":3}
