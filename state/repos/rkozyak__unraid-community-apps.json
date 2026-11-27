@@ -1,0 +1,1 @@
+{"files":{"main/templates/futo-backups.xml":[[1795705473,"18e91b9","4faa94b0e2",null]]},"heads":{"main":"18e91b954db96923528bcd1877271d3383ea8c08"},"paths":{"main":["templates/futo-backups.xml"]},"secrets":{},"sets":{"4faa94b0e2":["path:/backends/local","path:/cache","path:/data","path:/target/source","port:22676/tcp","variable:RESTIC_WALK_CONCURRENCY"]},"v":3}
