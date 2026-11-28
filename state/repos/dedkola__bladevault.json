@@ -1,1 +1,1 @@
-{"files":{"main/templates/bladevault.xml":[[1784126972,"c4f830e","1535ea5d3b",null]]},"heads":{"main":"7565737ee9d36284f3a12e8ce79a32495497e330"},"paths":{"main":["templates/bladevault.xml"]},"secrets":{},"sets":{"1535ea5d3b":["path:/app/data","port:3000/tcp"]},"v":3}
+{"files":{"main/templates/bladevault.xml":[[1784126972,"c4f830e","1535ea5d3b",null]]},"heads":{"main":"4ed5e2c116813983a4ae1bff69704291c129c852"},"paths":{"main":["templates/bladevault.xml"]},"secrets":{},"sets":{"1535ea5d3b":["path:/app/data","port:3000/tcp"]},"v":3}
